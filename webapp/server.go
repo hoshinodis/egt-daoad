@@ -8,8 +8,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"github.com/gochipon/w3ad/dao/config"
-	"github.com/gochipon/w3ad/dao/gen/sqlc"
+	"github.com/hoshinodis/egt-daoad/webapp/config"
+	"github.com/hoshinodis/egt-daoad/webapp/gen/sqlc"
 )
 
 type Server struct {
@@ -85,15 +85,7 @@ func apiRoutes(s *Server, g *echo.Group) {
 	// sites
 	g.GET("/sites", s.apiListSites)
 	g.POST("/sites", s.apiCreateSite)
-	g.GET("/pages", hello)
-	g.POST("/pages", hello)
-	g.GET("/units", hello)
-	g.POST("/units", hello)
 	// creatives
 	g.GET("/creatives", s.apiListCreatives)
 	g.POST("/creatives", s.apiCreateCreative)
-	g.GET("/campaigns", hello)
-	g.POST("/campaigns", hello)
-	g.GET("/groups", hello)
-	g.POST("/groups", hello)
 }

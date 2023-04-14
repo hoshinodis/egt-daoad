@@ -6,7 +6,7 @@ services:
             args:
                 - target=dev
         environment:
-            WEBAPP_ENV: dev
+            APP_ENV: dev
             PORT: 80
             WEBAPP_DB_HOST: webapp-db
             WEBAPP_DB_PORT: 3306

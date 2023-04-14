@@ -5,8 +5,6 @@ TAGS         := $(REVISION)
 
 .PHONY: build
 build: ## Build docker image
-	@echo '------- front build '
-	docker compose exec webapp bash -c 'cd front && yarn build --mode staging'
 	@echo '------- docker build '
 	docker build -t webapp:${TAGS} --target deploy ./
 

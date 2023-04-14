@@ -9,24 +9,6 @@ RUN go mod download
 COPY .. .
 RUN go build -trimpath -ldflags "-w -s" -o app ./cmd/webapp
 
-# migration用のファイル類
-# wget
-RUN apt-get install -y wget
-
-# mysqldef
-RUN wget -O - https://github.com/k0kubun/sqldef/releases/latest/download/mysqldef_linux_amd64.tar.gz \
-  | tar xvz
-
-# dao schema
-COPY _tools/mysql/schema.sql .
-
-# sh
-COPY _tools/run.sh .
-RUN chmod +x run.sh
-COPY _tools/migrate.sh .
-RUN chmod +x migrate.sh
-RUN chown root:root mysqldef
-
 # --------------------------------------------------------
 
 # デプロイ用のコンテナ
@@ -39,12 +21,7 @@ EXPOSE 80
 COPY --from=deploy-builder /app/front/dist ./front/dist
 COPY --from=deploy-builder /app/app .
 
-COPY --from=deploy-builder /app/schema.sql .
-COPY --from=deploy-builder /app/mysqldef .
-COPY --from=deploy-builder /app/migrate.sh .
-COPY --from=deploy-builder /app/run.sh .
-
-CMD ["./run.sh"]
+CMD ["./app"]
 
 # ---------------------------------------------------------
 
