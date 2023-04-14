@@ -27,7 +27,7 @@ module.exports = {
         },
         secondary: '#F5BB5E',
         passed: '#258034',
-        reject: '#8D0100',
+        rejected: '#8D0100',
       },
     },
     fontFamily: {

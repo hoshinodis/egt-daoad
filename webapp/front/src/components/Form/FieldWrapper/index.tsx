@@ -3,7 +3,7 @@ import clsx from 'clsx';
 export type FieldWrapperPropsType = {
   className?: string;
   label: string;
-  htmlFor: string;
+  htmlFor?: string;
   children: React.ReactNode;
 };
 export const FieldWrapper = ({ className, label, htmlFor, children }: FieldWrapperPropsType) => (
