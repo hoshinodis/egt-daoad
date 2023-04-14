@@ -8,7 +8,7 @@ ORDER BY id DESC;
 
 -- name: CreateSite :execlastid
 INSERT INTO sites (
-    name, url
+    wallet_address, url
 ) VALUES (
              ?, ?
          );

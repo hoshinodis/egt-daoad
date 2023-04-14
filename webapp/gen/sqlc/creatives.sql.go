@@ -22,20 +22,20 @@ func (q *Queries) ArchiveCreative(ctx context.Context, id int64) error {
 
 const createCreative = `-- name: CreateCreative :execlastid
 INSERT INTO creatives (
-    name, link, img
+    wallet_address, link, img
 ) VALUES (
              ?, ?, ?
          )
 `
 
 type CreateCreativeParams struct {
-	Name string `json:"name"`
-	Link string `json:"link"`
-	Img  string `json:"img"`
+	WalletAddress string `json:"wallet_address"`
+	Link          string `json:"link"`
+	Img           string `json:"img"`
 }
 
 func (q *Queries) CreateCreative(ctx context.Context, arg CreateCreativeParams) (int64, error) {
-	result, err := q.db.ExecContext(ctx, createCreative, arg.Name, arg.Link, arg.Img)
+	result, err := q.db.ExecContext(ctx, createCreative, arg.WalletAddress, arg.Link, arg.Img)
 	if err != nil {
 		return 0, err
 	}
@@ -43,7 +43,7 @@ func (q *Queries) CreateCreative(ctx context.Context, arg CreateCreativeParams) 
 }
 
 const getCreative = `-- name: GetCreative :one
-SELECT id, name, link, img, status FROM creatives
+SELECT id, wallet_address, link, img, status FROM creatives
 WHERE id = ? LIMIT 1
 `
 
@@ -52,7 +52,7 @@ func (q *Queries) GetCreative(ctx context.Context, id int64) (Creative, error) {
 	var i Creative
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.WalletAddress,
 		&i.Link,
 		&i.Img,
 		&i.Status,
@@ -61,7 +61,7 @@ func (q *Queries) GetCreative(ctx context.Context, id int64) (Creative, error) {
 }
 
 const listCreatives = `-- name: ListCreatives :many
-SELECT id, name, link, img, status FROM creatives
+SELECT id, wallet_address, link, img, status FROM creatives
 ORDER BY id DESC
 `
 
@@ -76,7 +76,7 @@ func (q *Queries) ListCreatives(ctx context.Context) ([]Creative, error) {
 		var i Creative
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
+			&i.WalletAddress,
 			&i.Link,
 			&i.Img,
 			&i.Status,

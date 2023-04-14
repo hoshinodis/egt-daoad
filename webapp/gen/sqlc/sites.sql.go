@@ -22,19 +22,19 @@ func (q *Queries) ArchiveSite(ctx context.Context, id int64) error {
 
 const createSite = `-- name: CreateSite :execlastid
 INSERT INTO sites (
-    name, url
+    wallet_address, url
 ) VALUES (
              ?, ?
          )
 `
 
 type CreateSiteParams struct {
-	Name string `json:"name"`
-	Url  string `json:"url"`
+	WalletAddress string `json:"wallet_address"`
+	Url           string `json:"url"`
 }
 
 func (q *Queries) CreateSite(ctx context.Context, arg CreateSiteParams) (int64, error) {
-	result, err := q.db.ExecContext(ctx, createSite, arg.Name, arg.Url)
+	result, err := q.db.ExecContext(ctx, createSite, arg.WalletAddress, arg.Url)
 	if err != nil {
 		return 0, err
 	}
@@ -42,7 +42,7 @@ func (q *Queries) CreateSite(ctx context.Context, arg CreateSiteParams) (int64, 
 }
 
 const getSite = `-- name: GetSite :one
-SELECT id, name, url, status FROM sites
+SELECT id, wallet_address, url, status FROM sites
 WHERE id = ? LIMIT 1
 `
 
@@ -51,7 +51,7 @@ func (q *Queries) GetSite(ctx context.Context, id int64) (Site, error) {
 	var i Site
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.WalletAddress,
 		&i.Url,
 		&i.Status,
 	)
@@ -59,7 +59,7 @@ func (q *Queries) GetSite(ctx context.Context, id int64) (Site, error) {
 }
 
 const listSites = `-- name: ListSites :many
-SELECT id, name, url, status FROM sites
+SELECT id, wallet_address, url, status FROM sites
 ORDER BY id DESC
 `
 
@@ -74,7 +74,7 @@ func (q *Queries) ListSites(ctx context.Context) ([]Site, error) {
 		var i Site
 		if err := rows.Scan(
 			&i.ID,
-			&i.Name,
+			&i.WalletAddress,
 			&i.Url,
 			&i.Status,
 		); err != nil {

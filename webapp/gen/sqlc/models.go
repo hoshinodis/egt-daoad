@@ -10,8 +10,8 @@ import ()
 type Creative struct {
 	// creative id
 	ID int64 `json:"id"`
-	// creative name
-	Name string `json:"name"`
+	// creative owner wallet address
+	WalletAddress string `json:"wallet_address"`
 	// creative link url
 	Link string `json:"link"`
 	// creative img base64
@@ -24,8 +24,8 @@ type Creative struct {
 type Site struct {
 	// site id
 	ID int64 `json:"id"`
-	// site name
-	Name string `json:"name"`
+	// site owner wallet address
+	WalletAddress string `json:"wallet_address"`
 	// site url
 	Url string `json:"url"`
 	// site status
