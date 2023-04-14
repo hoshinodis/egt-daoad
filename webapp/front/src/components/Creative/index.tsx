@@ -72,12 +72,14 @@ export const Creative = ({
                   .replace('T', ' ')}
               </div>
             </div>
-            <div className="w-1/3 px-2">
-              <div className="text-neutral-10/70">Expires</div>
-              <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
-                {getTimeDifference(expires)}
+            {isVote && (
+              <div className="w-1/3 px-2">
+                <div className="text-neutral-10/70">Expires</div>
+                <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+                  {getTimeDifference(expires)}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className={clsx('relative p-2', isVote ? 'h-48' : 'h-60')}>
             <img className="h-full w-full object-contain" src={image} alt="creative" />
