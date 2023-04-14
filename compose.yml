@@ -6,13 +6,13 @@ services:
             args:
                 - target=dev
         environment:
-            DAO_ENV: dev
+            WEBAPP_ENV: dev
             PORT: 80
-            DAO_DB_HOST: webapp-db
-            DAO_DB_PORT: 3306
-            DAO_DB_USER: root
-            DAO_DB_PASSWORD: root
-            DAO_DB_DATABASE: webapp
+            WEBAPP_DB_HOST: webapp-db
+            WEBAPP_DB_PORT: 3306
+            WEBAPP_DB_USER: root
+            WEBAPP_DB_PASSWORD: root
+            WEBAPP_DB_DATABASE: webapp
         ports:
             - 80:80
         volumes:

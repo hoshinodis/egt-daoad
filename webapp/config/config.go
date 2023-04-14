@@ -3,14 +3,13 @@ package config
 import "github.com/caarlos0/env/v6"
 
 type Config struct {
-	Env        string `env:"W3AD_ENV" envDefault:"dev"`
+	Env        string `env:"WEBAPP_ENV" envDefault:"dev"`
 	Port       int    `env:"PORT" envDefault:"80"`
-	AdHost     string `env:"AD_HOST" envDefault:"ad"`
-	DBHost     string `env:"W3AD_DB_HOST" envDefault:"127.0.0.1"`
-	DBPort     int    `env:"W3AD_DB_PORT" envDefault:"13306"`
-	DBUser     string `env:"W3AD_DB_USER" envDefault:"root"`
-	DBPassword string `env:"W3AD_DB_PASSWORD" envDefault:"root"`
-	DBName     string `env:"W3AD_DB_NAME" envDefault:"w3ad"`
+	DBHost     string `env:"WEBAPP_DB_HOST" envDefault:"127.0.0.1"`
+	DBPort     int    `env:"WEBAPP_DB_PORT" envDefault:"13306"`
+	DBUser     string `env:"WEBAPP_DB_USER" envDefault:"root"`
+	DBPassword string `env:"WEBAPP_DB_PASSWORD" envDefault:"root"`
+	DBName     string `env:"WEBAPP_DB_NAME" envDefault:"webapp"`
 }
 
 func New() (*Config, error) {
