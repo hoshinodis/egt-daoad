@@ -4,7 +4,7 @@ import "github.com/caarlos0/env/v6"
 
 type Config struct {
 	Env        string `env:"APP_ENV" envDefault:"dev"`
-	Port       int    `env:"PORT" envDefault:"80"`
+	Port       int    `env:"PORT" envDefault:"3000"`
 	DBHost     string `env:"WEBAPP_DB_HOST" envDefault:"localhost"`
 	DBPort     int    `env:"WEBAPP_DB_PORT" envDefault:"3306"`
 	DBUser     string `env:"WEBAPP_DB_USER" envDefault:"root"`
