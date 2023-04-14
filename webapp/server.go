@@ -88,4 +88,6 @@ func apiRoutes(s *Server, g *echo.Group) {
 	// creatives
 	g.GET("/creatives", s.apiListCreatives)
 	g.POST("/creatives", s.apiCreateCreative)
+	// ad
+	g.GET("/ad/:s_id", s.apiServeAd)
 }

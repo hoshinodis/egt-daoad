@@ -2,11 +2,27 @@ package webapp
 
 import (
 	"net/http"
+	"math/rand"
+	"time"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
 
 	"github.com/hoshinodis/egt-daoad/webapp/gen/sqlc"
 )
+
+func (s *Server) apiServeAd(c echo.Context) error {
+	data, err := s.query.ListCreatives(c.Request().Context())
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
+	}
+
+	rand.Seed(time.Now().UnixNano())
+	res := data[rand.Intn(len(data))]
+	tag := fmt.Sprintf("<a rel=\"nofollow\" href='%s' target=\"_blank\"><img src='%s' /></a>", res.Link, res.Img)
+
+	return c.HTML(http.StatusOK, tag)
+}
 
 func (s *Server) apiListCreatives(c echo.Context) error {
 	data, err := s.query.ListCreatives(c.Request().Context())
