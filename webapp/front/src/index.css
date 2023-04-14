@@ -2,35 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer components {
+  .text-18-medium {
+    @apply font-sans not-italic leading-[130%] text-[18px] font-medium;
   }
+
+  .text-18-semi {
+    @apply font-sans not-italic leading-[130%] text-[18px] font-semibold;
+  }
+
+  .text-18-bold {
+    @apply font-sans not-italic leading-[130%] text-[18px] font-bold;
+  }
+
+  .text-18-wide {
+    @apply font-sans not-italic leading-[130%] text-[18px] tracking-[0.07em] uppercase;
+  }
+
+  .text-22-semi {
+    @apply font-sans not-italic leading-[130%] text-[22px] font-semibold;
+  }
+
+  .text-24-black {
+    @apply font-sans not-italic leading-[130%] text-[24px] font-black;
+  }
+
+  .text-24-wide {
+    @apply font-sans not-italic leading-[130%] text-[24px] tracking-[0.08em] uppercase;
+  }
+
+  .text-28-semi {
+    @apply font-sans not-italic leading-[130%] text-[28px] font-semibold;
+  }
+
+  .text-32-medium {
+    @apply font-sans not-italic leading-[130%] text-[32px] font-medium;
+  }
+
+  .text-48-bold {
+    @apply font-sans not-italic leading-[130%] text-[48px] font-bold;
+  }
+}
+
+:root {
+  @apply bg-primary-main;
 }
