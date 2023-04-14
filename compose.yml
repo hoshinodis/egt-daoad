@@ -1,0 +1,31 @@
+services:
+    webapp:
+        image: webapp
+        build:
+            dockerfile: ./webapp/Dockerfile
+            args:
+                - target=dev
+        environment:
+            DAO_ENV: dev
+            PORT: 80
+            DAO_DB_HOST: webapp-db
+            DAO_DB_PORT: 3306
+            DAO_DB_USER: root
+            DAO_DB_PASSWORD: root
+            DAO_DB_DATABASE: webapp
+        ports:
+            - 80:80
+        volumes:
+            - ./webapp:/app:delegated
+        working_dir: /app
+        links:
+            - webapp-db
+
+    # auroraのバージョンと合わせる
+    webapp-db:
+        image: mysql:8.0.32
+        ports:
+            - 13306:3306
+        environment:
+            - MYSQL_DATABASE=webapp
+            - MYSQL_ROOT_PASSWORD=root
