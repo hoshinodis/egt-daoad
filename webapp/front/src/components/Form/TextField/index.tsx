@@ -22,6 +22,7 @@ export const TextField = ({
   return (
     <FieldWrapper className={className} label={label} htmlFor={id}>
       <input
+        type="text"
         id={id}
         className={clsx(
           'text-18-medium placeholder:text-18-medium placeholder:text-neutral-80 bg-primary-main rounded border border-solid border-neutral-100 p-1 text-neutral-100 outline-none'

@@ -34,5 +34,22 @@ module.exports = {
       sans: ['Proxima Nova', ...defaultTheme.fontFamily.sans],
     }
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.appearance-textfield::-webkit-inner-spin-button': {
+          '-webkit-appearance': 'none',
+          'margin': '0',
+        },
+        '.appearance-textfield::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          'margin': '0',
+        },
+        '.appearance-textfield': {
+          '-moz-appearance': 'textfield',
+        },
+      };
+      addUtilities(newUtilities, ['responsive']);
+    },
+  ],
 };
