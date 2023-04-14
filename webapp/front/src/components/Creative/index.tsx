@@ -54,12 +54,12 @@ export const Creative = ({
         <Card className="grow">
           <div className="flex">
             <div className="w-1/3 px-2">
-              <div className="text-neutral-10/70">Creative ID</div>
-              <div className="text-neutral-10">{id}</div>
+              <div className="text-18-semi text-neutral-10/70">Creative ID</div>
+              <div className="text-18-bold text-neutral-10">{id}</div>
             </div>
             <div className="w-1/3 px-2">
-              <div className="text-neutral-10/70">Created At</div>
-              <div className="text-neutral-10">
+              <div className="text-18-semi text-neutral-10/70">Created At</div>
+              <div className="text-18-bold text-neutral-10">
                 {createdAt
                   .toLocaleString('ja-JP', {
                     year: 'numeric',
@@ -74,8 +74,8 @@ export const Creative = ({
             </div>
             {isVote && (
               <div className="w-1/3 px-2">
-                <div className="text-neutral-10/70">Expires</div>
-                <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+                <div className="text-18-semi text-neutral-10/70">Expires</div>
+                <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
                   {getTimeDifference(expires)}
                 </div>
               </div>

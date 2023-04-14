@@ -17,16 +17,18 @@ export const Site = ({ className, id, url, createdAt, status, ok, ng, tag }: Sit
   <div className={clsx('flex flex-col', className)}>
     <Card className="flex">
       <div className="w-1/3 px-2">
-        <div className="text-neutral-10/70">Site ID</div>
-        <div className="text-neutral-10">{id}</div>
+        <div className="text-18-semi text-neutral-10/70">Site ID</div>
+        <div className="text-18-bold text-neutral-10">{id}</div>
       </div>
       <div className="w-1/3 px-2">
-        <div className="text-neutral-10/70">Site URL</div>
-        <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">{url}</div>
+        <div className="text-18-semi text-neutral-10/70">Site URL</div>
+        <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+          {url}
+        </div>
       </div>
       <div className="w-1/3 px-2">
-        <div className="text-neutral-10/70">Created At</div>
-        <div className="text-neutral-10">
+        <div className="text-18-semi text-neutral-10/70">Created At</div>
+        <div className="text-18-bold text-neutral-10">
           {createdAt
             .toLocaleString('ja-JP', {
               year: 'numeric',
