@@ -1,37 +1,38 @@
 const path = require('path');
-const { loadConfigFromFile, mergeConfig } = require('vite');
-
+const {
+  loadConfigFromFile,
+  mergeConfig
+} = require('vite');
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    {
-      name: '@storybook/addon-postcss',
-      options: {
-        postcssLoaderOptions: {
-          implementation: require('postcss'),
-        },
-      },
-    },
-  ],
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-vite',
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-interactions', {
+    name: '@storybook/addon-postcss',
+    options: {
+      postcssLoaderOptions: {
+        implementation: require('postcss')
+      }
+    }
+  }, '@storybook/addon-mdx-gfm'],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {}
   },
   features: {
-    storyStoreV7: true,
+    storyStoreV7: true
   },
-  async viteFinal(config, { configType }) {
-    const { config: userConfig } = await loadConfigFromFile(
-      path.resolve(__dirname, '../vite.config.ts')
-    );
-
+  async viteFinal(config, {
+    configType
+  }) {
+    const {
+      config: userConfig
+    } = await loadConfigFromFile(path.resolve(__dirname, '../vite.config.ts'));
     return mergeConfig(config, {
       ...userConfig,
       // manually specify plugins to avoid conflict
-      plugins: [],
+      plugins: []
     });
   },
+  docs: {
+    autodocs: true
+  }
 };
