@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import clsx from 'clsx';
 
 import { Card } from '@/components/Elements';
@@ -37,52 +39,61 @@ export const Creative = ({
   status,
   ok,
   ng,
-}: CreativePropsType) => (
-  <div className={clsx('flex flex-col', className)}>
-    <div className="flex">
-      <Band className="h-full" color={status} direction="vertical">
-        VOTE IN {status}
-      </Band>
-      <Card className="grow">
-        <div className="flex">
-          <div className="w-1/3 px-2">
-            <div className="text-neutral-10/70">Creative ID</div>
-            <div className="text-neutral-10">{id}</div>
-          </div>
-          <div className="w-1/3 px-2">
-            <div className="text-neutral-10/70">Created At</div>
-            <div className="text-neutral-10">
-              {createdAt
-                .toLocaleString('ja-JP', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })
-                .replace(/-/g, '/')
-                .replace('T', ' ')}
+}: CreativePropsType) => {
+  const isVote = useMemo(
+    () => status === 'process' && ok !== undefined && ng !== undefined,
+    [status, ok, ng]
+  );
+
+  return (
+    <div className={clsx('flex flex-col', className)}>
+      <div className="flex">
+        <Band color={status} direction="vertical">
+          VOTE IN {status}
+        </Band>
+        <Card className="grow">
+          <div className="flex">
+            <div className="w-1/3 px-2">
+              <div className="text-neutral-10/70">Creative ID</div>
+              <div className="text-neutral-10">{id}</div>
+            </div>
+            <div className="w-1/3 px-2">
+              <div className="text-neutral-10/70">Created At</div>
+              <div className="text-neutral-10">
+                {createdAt
+                  .toLocaleString('ja-JP', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                  .replace(/-/g, '/')
+                  .replace('T', ' ')}
+              </div>
+            </div>
+            <div className="w-1/3 px-2">
+              <div className="text-neutral-10/70">Expires</div>
+              <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+                {getTimeDifference(expires)}
+              </div>
             </div>
           </div>
-          <div className="w-1/3 px-2">
-            <div className="text-neutral-10/70">Expires</div>
-            <div className="text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
-              {getTimeDifference(expires)}
-            </div>
+          <div className={clsx('relative p-2', isVote ? 'h-48' : 'h-60')}>
+            <img className="h-full w-full object-contain" src={image} alt="creative" />
           </div>
-        </div>
-        <div>
-          <img src={image} alt="creative" />
-        </div>
-      </Card>
-    </div>
-    <Band className="flex justify-end" color={status}>
-      <div>
-        <span>OK</span>
-        <span>{ok}%</span>
-        <span>NG</span>
-        <span>{ng}%</span>
+        </Card>
       </div>
-    </Band>
-  </div>
-);
+      {isVote && (
+        <Band className="flex justify-end" color={status}>
+          <div>
+            <span>OK</span>
+            <span>{ok}%</span>
+            <span>NG</span>
+            <span>{ng}%</span>
+          </div>
+        </Band>
+      )}
+    </div>
+  );
+};
