@@ -54,7 +54,7 @@ export const Site = ({ className, id, url, createdAt, status, ok, ng, tag }: Sit
         </div>
       </Band>
       {status === 'passed' && (
-        <Button className="h-[47px] w-1/4" color="neutral" onClick={() => tag}>
+        <Button className="h-12 w-1/4" color="neutral" onClick={() => tag}>
           COPY AD TAG
         </Button>
       )}

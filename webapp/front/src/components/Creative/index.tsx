@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import clsx from 'clsx';
 
-import { Card } from '@/components/Elements';
+import { Button, Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
 
 const getTimeDifference = (date: Date): string => {
@@ -87,14 +87,19 @@ export const Creative = ({
         </Card>
       </div>
       {isVote && (
-        <Band className="flex justify-end" color={status}>
-          <div>
-            <span>OK</span>
-            <span>{ok}%</span>
-            <span>NG</span>
-            <span>{ng}%</span>
-          </div>
-        </Band>
+        <div className="flex">
+          <Band className="flex w-3/4 justify-end" color={status}>
+            <div>
+              <span>OK</span>
+              <span>{ok}%</span>
+              <span>NG</span>
+              <span>{ng}%</span>
+            </div>
+          </Band>
+          <Button className="h-12 w-1/4" color="secondary" onClick={() => {}}>
+            VOTE
+          </Button>
+        </div>
       )}
     </div>
   );
