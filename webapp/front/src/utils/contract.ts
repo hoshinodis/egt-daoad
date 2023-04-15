@@ -18,6 +18,7 @@ export const connectSigner = (contract: ethers.Contract): ethers.Contract => {
 };
 
 export const getGasPrice = async () => {
+  if (!window.ethereum) throw new Error('No ethereum provider found');
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const gasPrice = await provider.getGasPrice();
   return gasPrice;
