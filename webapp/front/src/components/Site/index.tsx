@@ -90,7 +90,7 @@ export const Site = ({
               .replace('T', ' ')}
           </div>
         </div>
-        <div className="w-24 px-2">
+        <div className="w-32 px-2">
           {isVote && (
             <>
               <div className="text-18-semi text-neutral-10/70">Expires</div>

@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Creative } from '@/components/Creative';
 import { Title } from '@/components/Elements/Title';
 
-import VotingListOfCreatives from '@/assets/title/voting-list-of-creatives.svg';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import VotingListOfCreatives from '@/assets/title/voting-list-of-creatives.svg';
 
 /**
  * @package
@@ -17,20 +16,20 @@ export const CreativeList = () => {
     alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
   };
 
-  const creatives = useSelector((state: RootState) => state.app.advertiserList)
-  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList)
+  const creatives = useSelector((state: RootState) => state.app.advertiserList);
+  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList);
 
   const getStatusText = (status: number) => {
     if (status === 1) {
-      return "passed"
+      return 'passed';
     }
 
     if (status === 2) {
-      return "rejected"
+      return 'rejected';
     }
 
-    return "process"
-  }
+    return 'process';
+  };
 
   return (
     <>
@@ -42,6 +41,7 @@ export const CreativeList = () => {
             id={contractCreative.id}
             createdAt={contractCreative.createdAt}
             expires={contractCreative.endAt}
+            link="https://example.com" // TODO
             image={creatives[i].img}
             status={getStatusText(creatives[i].status)}
             ok={contractCreative.agreeVoteAmount}
