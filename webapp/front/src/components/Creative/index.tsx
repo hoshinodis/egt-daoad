@@ -24,7 +24,7 @@ export type CreativePropsType = {
   className?: string;
   id: string;
   createdAt: Date;
-  expires: Date;
+  expires?: Date;
   image: string;
   status: 'process' | 'passed' | 'rejected';
   ok?: number;
@@ -41,8 +41,8 @@ export const Creative = ({
   ng,
 }: CreativePropsType) => {
   const isVote = useMemo(
-    () => status === 'process' && ok !== undefined && ng !== undefined,
-    [status, ok, ng]
+    () => status === 'process' && ok !== undefined && ng !== undefined && expires !== undefined,
+    [status, ok, ng, expires]
   );
 
   return (
@@ -76,7 +76,7 @@ export const Creative = ({
               <div className="w-1/3 px-2">
                 <div className="text-18-semi text-neutral-10/70">Expires</div>
                 <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {getTimeDifference(expires)}
+                  {getTimeDifference(expires!)}
                 </div>
               </div>
             )}

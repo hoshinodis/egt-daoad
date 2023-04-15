@@ -17,7 +17,7 @@ export const Band = ({
       'text-neutral-10 flex flex-row items-center border-solid border-[#47554E] font-sans',
       color === 'process' && 'bg-primary-40',
       color === 'passed' && 'bg-passed',
-      color === 'rejected' && 'bg-reject',
+      color === 'rejected' && 'bg-rejected',
       direction === 'horizontal'
         ? 'h-12 border-t py-[9px] px-[24px]'
         : 'w-12 scale-[-1] flex-col border-l py-[12.5px] px-[24px] [writing-mode:vertical-rl]',

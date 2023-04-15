@@ -17,7 +17,7 @@ export default {
   component: Creative,
   args: {
     id: '0005',
-    image: 'https://source.unsplash.com/random',
+    image: 'https://picsum.photos/500/200',
     createdAt: new Date(),
     ok: 40,
     ng: 60,
