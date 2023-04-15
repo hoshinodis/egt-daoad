@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 
 import { Button, Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
+import { VoteModal } from '@/components/Site/VoteModal';
 
 const getTimeDifference = (date: Date): string => {
   const now = new Date();
@@ -30,7 +31,8 @@ export type SitePropsType = {
   ok: number;
   ng: number;
   onCopyTag?: React.MouseEventHandler<HTMLButtonElement>;
-  onVote?: React.MouseEventHandler<HTMLButtonElement>;
+  maxVp: number;
+  onVote?: (checked: boolean, vp: number) => void;
 };
 export const Site = ({
   className,
@@ -42,6 +44,7 @@ export const Site = ({
   ok,
   ng,
   onCopyTag,
+  maxVp,
   onVote,
 }: SitePropsType) => {
   const isVote = useMemo(
@@ -49,6 +52,10 @@ export const Site = ({
     [status, expires, onVote]
   );
   const isCopyTag = useMemo(() => status === 'passed' && onCopyTag, [onCopyTag, status]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpenModal = () => setIsOpen(true);
+  const handleCloseModal = () => setIsOpen(false);
 
   return (
     <div className={clsx('flex flex-col', className)}>
@@ -106,9 +113,16 @@ export const Site = ({
           </Button>
         )}
         {isVote && (
-          <Button className="h-12 w-1/4" color="secondary" onClick={onVote!}>
+          <VoteModal
+            url={url}
+            onClick={handleOpenModal}
+            isOpen={isOpen}
+            onClose={handleCloseModal}
+            maxVp={maxVp}
+            onVote={onVote!}
+          >
             VOTE
-          </Button>
+          </VoteModal>
         )}
       </div>
     </div>

@@ -28,6 +28,8 @@ const Template: ComponentStory<T> = (args) => <Site {...args} />;
 export const Process = Template.bind({});
 Process.args = {
   status: 'process',
+  onVote: () => {},
+  expires: new Date(),
 };
 
 /**

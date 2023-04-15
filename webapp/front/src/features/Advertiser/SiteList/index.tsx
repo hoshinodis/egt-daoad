@@ -9,6 +9,12 @@ import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
  * @package
  */
 export const SiteList = () => {
+  const [maxVp] = useState(80);
+
+  const handleVote = (id: string) => (checked: boolean, vp: number) => {
+    alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
+  };
+
   const [sites] = useState<
     {
       id: string;
@@ -18,7 +24,7 @@ export const SiteList = () => {
       ok: number;
       ng: number;
       expires?: Date;
-      onVote: React.MouseEventHandler<HTMLButtonElement>;
+      onVote: (checked: boolean, vp: number) => void;
     }[]
   >([
     {
@@ -29,7 +35,7 @@ export const SiteList = () => {
       ok: 50,
       ng: 50,
       expires: new Date(new Date().getTime() + Math.random() * 1000000),
-      onVote: () => alert('vote'),
+      onVote: handleVote('0001'),
     },
     {
       id: '0002',
@@ -38,7 +44,7 @@ export const SiteList = () => {
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
       ok: 50,
       ng: 50,
-      onVote: () => alert('vote'),
+      onVote: handleVote('0002'),
     },
     {
       id: '0003',
@@ -47,7 +53,7 @@ export const SiteList = () => {
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
       ok: 50,
       ng: 50,
-      onVote: () => alert('vote'),
+      onVote: handleVote('0003'),
     },
   ]);
 
@@ -56,7 +62,7 @@ export const SiteList = () => {
       <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
       <div className="flex flex-col gap-12">
         {sites.map((site) => (
-          <Site key={site.id} {...site} />
+          <Site key={site.id} {...site} maxVp={maxVp} />
         ))}
       </div>
     </>

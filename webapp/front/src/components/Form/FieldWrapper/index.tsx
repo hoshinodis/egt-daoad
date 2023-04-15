@@ -8,7 +8,7 @@ export type FieldWrapperPropsType = {
 };
 export const FieldWrapper = ({ className, label, htmlFor, children }: FieldWrapperPropsType) => (
   <div className={clsx('flex flex-col', className)}>
-    <label className="text-18-semi block text-sm font-bold text-neutral-100/70" htmlFor={htmlFor}>
+    <label className="text-18-semi block text-neutral-100/70" htmlFor={htmlFor}>
       {label}
     </label>
     {children}

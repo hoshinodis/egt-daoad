@@ -39,17 +39,19 @@ export const CreativeModal = ({
     setImage(acceptedFiles[0]);
   };
 
-  const handleCreate = () => {
-    if (image) {
-      onCreate(image);
-    }
-  };
-
   const handleClose = (
     event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>
   ) => {
     setImage(null);
     onClose(event);
+  };
+  const handleCreate = (
+    event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>
+  ) => {
+    if (image) {
+      onCreate(image);
+      handleClose(event);
+    }
   };
 
   return (

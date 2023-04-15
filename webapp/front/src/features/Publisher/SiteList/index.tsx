@@ -10,6 +10,8 @@ import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
  * @package
  */
 export const SiteList = () => {
+  const [maxVp] = useState(80);
+
   const [sites] = useState<
     {
       id: string;
@@ -64,7 +66,7 @@ export const SiteList = () => {
       </div>
       <div className="flex flex-col gap-12">
         {sites.map((site) => (
-          <Site key={site.id} {...site} />
+          <Site key={site.id} {...site} maxVp={maxVp} />
         ))}
       </div>
     </>
