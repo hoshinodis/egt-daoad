@@ -64,18 +64,18 @@ export const Site = ({
 
   return (
     <div className={clsx('flex flex-col', className)}>
-      <Card className="flex">
-        <div className={clsx('px-2', isVote ? 'w-1/4' : 'w-1/3')}>
+      <Card className="flex py-[18px]">
+        <div className={clsx('w-24 px-2')}>
           <div className="text-18-semi text-neutral-10/70">Site ID</div>
           <div className="text-18-bold text-neutral-10">{id}</div>
         </div>
-        <div className={clsx('px-2', isVote ? 'w-1/4' : 'w-1/3')}>
+        <div className={clsx('flex-[2_1_0%] px-2')}>
           <div className="text-18-semi text-neutral-10/70">Site URL</div>
           <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
             {url}
           </div>
         </div>
-        <div className={clsx('px-2', isVote ? 'w-1/4' : 'w-1/3')}>
+        <div className={clsx('flex-1 px-2')}>
           <div className="text-18-semi text-neutral-10/70">Created At</div>
           <div className="text-18-bold text-neutral-10">
             {createdAt
@@ -90,14 +90,16 @@ export const Site = ({
               .replace('T', ' ')}
           </div>
         </div>
-        {isVote && (
-          <div className="w-1/4 px-2">
-            <div className="text-18-semi text-neutral-10/70">Expires</div>
-            <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
-              {getTimeDifference(expires!)}
-            </div>
-          </div>
-        )}
+        <div className="w-24 px-2">
+          {isVote && (
+            <>
+              <div className="text-18-semi text-neutral-10/70">Expires</div>
+              <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+                {getTimeDifference(expires!)}
+              </div>
+            </>
+          )}
+        </div>
       </Card>
       <div className="flex">
         <Band
@@ -120,11 +122,15 @@ export const Site = ({
                 : 'rejected'
             }
           />
-          <div>
-            <span>OK</span>
-            <span>{ok}%</span>
-            <span>NG</span>
-            <span>{ng}%</span>
+          <div className="flex gap-6">
+            <div className="flex gap-3">
+              <p className="text-18-semi text-neutral-10/70 pt-1">OK</p>
+              <p className="text-22-semi text-neutral-10">{ok}%</p>
+            </div>
+            <div className="flex gap-3">
+              <div className="text-18-semi text-neutral-10/70 pt-1">NG</div>
+              <div className="text-22-semi text-neutral-10">{ng}%</div>
+            </div>
           </div>
         </Band>
         {isCopyTag && (

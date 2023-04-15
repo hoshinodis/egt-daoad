@@ -83,12 +83,12 @@ export const Creative = ({
           />
         </Band>
         <Card className="grow">
-          <div className="flex">
-            <div className="w-1/3 px-2">
+          <div className="flex py-[12px]">
+            <div className="w-32 px-2">
               <div className="text-18-semi text-neutral-10/70">Creative ID</div>
               <div className="text-18-bold text-neutral-10">{id}</div>
             </div>
-            <div className="w-1/3 px-2">
+            <div className="flex-1 px-2">
               <div className="text-18-semi text-neutral-10/70">Created At</div>
               <div className="text-18-bold text-neutral-10">
                 {createdAt
@@ -103,14 +103,16 @@ export const Creative = ({
                   .replace('T', ' ')}
               </div>
             </div>
-            {isVote && (
-              <div className="w-1/3 px-2">
-                <div className="text-18-semi text-neutral-10/70">Expires</div>
-                <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {getTimeDifference(expires!)}
-                </div>
-              </div>
-            )}
+            <div className="w-24 px-2">
+              {isVote && (
+                <>
+                  <div className="text-18-semi text-neutral-10/70">Expires</div>
+                  <div className="text-18-bold text-neutral-10 overflow-hidden text-ellipsis whitespace-nowrap">
+                    {getTimeDifference(expires!)}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
           <div className={clsx('relative p-2', isVote ? 'h-48' : 'h-60')}>
             <img className="h-full w-full object-contain" src={image} alt="creative" />
@@ -120,11 +122,15 @@ export const Creative = ({
       {isVote && (
         <div className="flex">
           <Band className="flex flex-1 justify-end" color={status}>
-            <div>
-              <span>OK</span>
-              <span>{ok}%</span>
-              <span>NG</span>
-              <span>{ng}%</span>
+            <div className="flex gap-6">
+              <div className="flex gap-3">
+                <p className="text-18-semi text-neutral-10/70 pt-1">OK</p>
+                <p className="text-22-semi text-neutral-10">{ok}%</p>
+              </div>
+              <div className="flex gap-3">
+                <div className="text-18-semi text-neutral-10/70 pt-1">NG</div>
+                <div className="text-22-semi text-neutral-10">{ng}%</div>
+              </div>
             </div>
           </Band>
           <VoteModal
