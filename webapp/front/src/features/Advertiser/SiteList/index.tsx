@@ -23,6 +23,22 @@ export const SiteList = () => {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
+  const handleVote = (id: string) => async (checked: boolean, vp: number) => {
+    const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
+    try {
+      const gasPrice = await getGasPrice();
+
+      const tx = await connectSigner(daoContract).vote(Number(id), checked, vp, {
+        gasLimit: 5000000,
+        gasPrice,
+      });
+
+      await tx.wait();
+      alert('Vote Successfully');
+    } catch (e) {
+      console.log('Err: ', e);
+    }
+  };
   const address = useSelector((state: RootState) => state.app.address);
   const sites = useSelector((state: RootState) => state.app.siteList);
   const isAdvertiser = useSelector((state: RootState) => state.app.isAdvertiser);
@@ -122,6 +138,7 @@ export const SiteList = () => {
                 : 0
             }
             maxVp={maxVp}
+            onVote={handleVote(contractSite.id !== undefined ? contractSite.id.toNumber() : 0)}
           />
         ))}
       </div>
