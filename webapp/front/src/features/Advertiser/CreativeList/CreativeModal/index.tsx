@@ -20,8 +20,7 @@ export type CreativeModalPropsType = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   isOpen: boolean;
   onClose: (event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void;
-  onDrop: (acceptedFiles: File[]) => void;
-  onCreate: React.MouseEventHandler<HTMLButtonElement>;
+  onCreate: (image: File) => void;
 };
 /**
  * @package
@@ -32,14 +31,18 @@ export const CreativeModal = ({
   onClick,
   isOpen,
   onClose,
-  onDrop,
   onCreate,
 }: CreativeModalPropsType) => {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
-    setImage(window.URL.createObjectURL(acceptedFiles[0]));
-    onDrop(acceptedFiles);
+    setImage(acceptedFiles[0]);
+  };
+
+  const handleCreate = () => {
+    if (image) {
+      onCreate(image);
+    }
   };
 
   const handleClose = (
@@ -65,7 +68,11 @@ export const CreativeModal = ({
             </FieldWrapper>
           ) : (
             <div className="h-[240px]">
-              <img className="h-full w-full object-contain" src={image} alt="preview" />
+              <img
+                className="h-full w-full object-contain"
+                src={window.URL.createObjectURL(image)}
+                alt="preview"
+              />
             </div>
           )}
         </ModalContents>
@@ -73,7 +80,7 @@ export const CreativeModal = ({
           <Button color="neutral" onClick={handleClose}>
             CANCEL
           </Button>
-          <Button color="secondary" onClick={onCreate}>
+          <Button color="secondary" onClick={handleCreate}>
             CREATE
           </Button>
         </ModalActions>

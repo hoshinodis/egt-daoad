@@ -40,9 +40,7 @@ export const CreativeList = () => {
 
   const handleModalClose = () => setIsOpen(false);
 
-  const handleDropImage = (files: File[]) => console.log(files);
-
-  const handleCreate = () => alert('create');
+  const handleCreate = (file: File) => alert(`create${file.name}`);
 
   return (
     <>
@@ -53,7 +51,6 @@ export const CreativeList = () => {
             onClick={handleClickNewCreative}
             isOpen={isOpen}
             onClose={handleModalClose}
-            onDrop={handleDropImage}
             onCreate={handleCreate}
           >
             NEW CREATIVE
