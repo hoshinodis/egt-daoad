@@ -6,7 +6,7 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
 
   const token = await ethers.getContractFactory("Token");
-  const contract = await token.deploy("Advertiser Reward Token", "ARGT");
+  const contract = await token.deploy("Media Reward Token", "MRGT");
 
   console.log("Contract address:", contract.address);
 }

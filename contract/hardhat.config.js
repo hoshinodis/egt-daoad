@@ -20,6 +20,10 @@ module.exports = {
       url: `https://rpc.public.zkevm-test.net`,
       accounts: [`0x${PRIVATE_KEY}`],
     },
+    scrollAlpha: {
+      url: "https://alpha-rpc.scroll.io/l2",
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
   },
   etherscan: {
     apiKey: ETHERSCAN_KEY,
