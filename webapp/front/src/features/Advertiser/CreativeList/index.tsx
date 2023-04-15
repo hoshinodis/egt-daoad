@@ -142,7 +142,7 @@ export const CreativeList = () => {
               )
             }
             link={contractCreative.siteUrl}
-            image={creatives[0].img}
+            image={creatives.length > i ? creatives[i].img : 'image'}
             status={creatives.length > i ? getStatusText(creatives[i].status) : 'process'}
             ok={
               contractCreative.agreeVoteAmount !== undefined
