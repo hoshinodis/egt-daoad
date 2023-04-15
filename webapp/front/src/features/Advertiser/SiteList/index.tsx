@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Title } from '@/components/Elements/Title';
 import { Site } from '@/components/Site';
 
-import { NewSiteModal } from '@/features/Publisher/SiteList/NewSiteModal';
-
 import { getGasPrice, connectSigner } from '@/utils/contract';
 
 import { RootState } from '@/app/store';
@@ -95,19 +93,7 @@ export const SiteList = () => {
 
   return (
     <>
-      <div className="flex justify-between">
-        <Title className="my-8" src={MySitesTitle} alt="voting list of sites" />
-        <div className="flex items-center">
-          <NewSiteModal
-            onClick={handleOpen}
-            isOpen={isOpen}
-            onClose={handleClose}
-            onCreate={contractSite}
-          >
-            NEW SITE
-          </NewSiteModal>
-        </div>
-      </div>
+      <Title className="my-8" src={MySitesTitle} alt="voting list of sites" />
       <div className="flex flex-col gap-12">
         {contractSites.map((contractSite, i) => (
           <Site

@@ -82,7 +82,7 @@ export const VoteModal = ({
         <ModalTitle className="h-14">
           <Title
             src={type === 'site' ? VoteForSiteTitle : VoteForCreativeTitle}
-            alt={`new ${type}`}
+            alt={`vote ${type}`}
           />
         </ModalTitle>
         <ModalContents className="flex items-center">
