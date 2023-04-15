@@ -20,7 +20,7 @@ export const Band = ({
       color === 'rejected' && 'bg-rejected',
       direction === 'horizontal'
         ? 'h-12 border-t py-[9px] px-[24px]'
-        : 'w-12 scale-[-1] flex-col border-l py-[12.5px] px-[24px] [writing-mode:vertical-rl]',
+        : 'w-12 flex-col border-r py-[12.5px] px-[24px]',
       className
     )}
   >
