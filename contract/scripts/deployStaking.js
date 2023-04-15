@@ -14,7 +14,7 @@ async function main() {
   );
 
   console.log("Contract address:", contract.address);
-  // 0x278b916A040C8BE3e61755dB4e74a4dD244A431d
+  // 0x88198a63688A18347A993588ffDC1fdfbAd4800b
   //0x439e963F9149413fBB6a8F9594C5dEDE2f25cD2b scroll
 }
 
