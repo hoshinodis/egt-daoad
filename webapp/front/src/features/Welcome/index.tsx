@@ -33,9 +33,9 @@ export const Welcome = () => {
                 method: 'wallet_addEthereumChain',
                 params: [
                   {
-                    chainName: 'Mumbai',
+                    chainName: 'polygon_zkevm',
                     chainId: ethers.utils.hexValue(1442),
-                    rpcUrls: ['https://rpc.ankr.com/polygon_mumbai'],
+                    rpcUrls: ['https://rpc.public.zkevm-test.net'],
                   },
                 ],
               });
