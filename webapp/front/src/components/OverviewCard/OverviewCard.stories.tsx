@@ -55,8 +55,8 @@ Speed.args = {
 export const Stake = Template.bind({});
 Stake.args = {
   icon: StakeIcon,
-  buttonLabel: 'Stake',
-  onClick: () => {},
+  maxVp: 80,
+  onStake: () => {},
 };
 
 /**

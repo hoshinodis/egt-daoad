@@ -13,14 +13,16 @@ import AdvertiserOverviewTitle from '@/assets/title/advertiser-overview.svg';
  * @package
  */
 export const OverviewList = () => {
+  const [maxVp] = useState(80);
+
   const [adsGt] = useState(8255);
   const formattedAdsGt = useMemo(() => adsGt.toLocaleString(), [adsGt]);
 
   const [staked] = useState(4211);
   const formattedStaked = useMemo(() => staked.toLocaleString(), [staked]);
 
-  const handleStake = () => {
-    // handleStake
+  const handleStake = (amount: number) => {
+    alert(`stake: ${amount}`);
   };
 
   const [vp] = useState(80);
@@ -38,8 +40,8 @@ export const OverviewList = () => {
           className="h-48 flex-1"
           title="Staked ADsGT"
           icon={StakeIcon}
-          buttonLabel="STAKE"
-          onClick={handleStake}
+          onStake={handleStake}
+          maxVp={maxVp}
         >
           <p className="text-48-bold text-neutral-10">{formattedStaked}</p>
         </OverviewCard>
