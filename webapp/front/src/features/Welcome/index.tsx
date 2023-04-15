@@ -1,44 +1,41 @@
 import { useNavigate } from 'react-router-dom';
 
+import { ethers } from 'ethers';
+import { useDispatch } from 'react-redux';
+
 import { Container } from '@/components/Layouts/Container';
 import { Header } from '@/components/Layouts/Header';
 
 import TitleIcon from '@/assets/icons/title.svg';
 import { setAddress, setIsAdmin } from '@/slice/appSlice';
-import { ethers } from 'ethers';
-import { useDispatch } from 'react-redux';
 
-const { ethereum } = window
+const { ethereum } = window;
+console.log(ethereum);
 
-const PUBKEY = "0x81d33b63457C311F33241b1e9A40d3DA46237478"
+const PUBKEY = '0x81d33b63457C311F33241b1e9A40d3DA46237478';
 
 export const Welcome = () => {
-  const navigate = useNavigate();
-  const handleConnect = () => {
-    navigate('/advertiser');
-    onConnectMetamask();
-  };
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onConnectMetamask = async () => {
     if (ethereum) {
       try {
+        // @ts-ignore
         if (ethereum.networkVersion !== 1442) {
           try {
-            await ethereum.request({
-              method: "wallet_switchEthereumChain",
+            await ethereum.request!({
+              method: 'wallet_switchEthereumChain',
               params: [{ chainId: ethers.utils.hexValue(1442) }],
             });
-          } catch (e: any) {
-            if (e.code === 4902) {
-              await ethereum.request({
-                method: "wallet_addEthereumChain",
+          } catch (e: unknown) {
+            if (e !== null && typeof e === 'object' && 'code' in e && e.code === 4902) {
+              await ethereum.request!({
+                method: 'wallet_addEthereumChain',
                 params: [
                   {
-                    chainName: "Mumbai",
+                    chainName: 'Mumbai',
                     chainId: ethers.utils.hexValue(1442),
-                    rpcUrls: ["https://rpc.ankr.com/polygon_mumbai"],
+                    rpcUrls: ['https://rpc.ankr.com/polygon_mumbai'],
                   },
                 ],
               });
@@ -46,30 +43,37 @@ export const Welcome = () => {
           }
         }
 
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
+        const accounts = (await ethereum.request!({
+          method: 'eth_requestAccounts',
+        })) as string[];
 
         if (accounts[0]) {
-          dispatch(setAddress(accounts[0]))
+          dispatch(setAddress(accounts[0]));
         }
 
         if (PUBKEY.toLowerCase() === accounts[0].toLowerCase()) {
-          dispatch(setIsAdmin(true))
+          dispatch(setIsAdmin(true));
         } else {
-          dispatch(setIsAdmin(false))
+          dispatch(setIsAdmin(false));
         }
       } catch (error) {
-        console.log("Error connecting...");
+        console.log('Error connecting...');
       }
     } else {
-      window.open("https://metamask.io");
-      alert("Meta Mask not detected");
+      window.open('https://metamask.io');
+      alert('Meta Mask not detected');
     }
-  }
+  };
 
-  ethereum.on('accountsChanged', function () {
-    onConnectMetamask()
+  const navigate = useNavigate();
+  const handleConnect = () => {
+    navigate('/advertiser');
+    onConnectMetamask().catch((e) => console.log(e));
+  };
+
+  // @ts-ignore
+  ethereum.on('accountsChanged', () => {
+    onConnectMetamask().catch((e) => console.log(e));
   });
 
   return (
