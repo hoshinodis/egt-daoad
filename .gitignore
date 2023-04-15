@@ -3,4 +3,6 @@
 /contract/cache
 /contract/artifacts
 
+/webapp/app
+
 .idea
