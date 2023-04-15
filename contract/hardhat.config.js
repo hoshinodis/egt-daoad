@@ -1,30 +1,39 @@
-require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-etherscan");
 
-const privateKey = process.env.PRIVATE_KEY;
-const etherscanKey = process.env.ETHERSCAN_KEY;
+const { PRIVATE_KEY, ETHERSCAN_KEY } = process.env;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  defaultNetwork: "zkEVM_test",
+  defaultNetwork: "mumbai",
   networks: {
+    sepolia: {
+      url: "https://rpc.sepolia.org/",
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com",
-      accounts: [`0x${privateKey}`],
-      gas: 500000,
-      gasPrice: 1000000000,
+      accounts: [`0x${PRIVATE_KEY}`],
     },
-    // zkEVM_test: {
-    //   url: `https://rpc.public.zkevm-test.net`,
-    //   accounts: [`0x${privateKey}`],
-    //   gas: 500000,
-    //   gasPrice: 1000000000,
-    // },
+    zkEVM_test: {
+      url: `https://rpc.public.zkevm-test.net`,
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
   },
   etherscan: {
-    apiKey: etherscanKey,
+    apiKey: ETHERSCAN_KEY,
   },
   solidity: {
     version: "0.8.18",
+  },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts",
+  },
+  mocha: {
+    timeout: 20000,
   },
 };

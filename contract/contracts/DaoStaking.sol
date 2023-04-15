@@ -326,4 +326,26 @@ contract DaoStaking is Ownable, ReentrancyGuard {
         }
         return (rewardAmount, rewardSpeed);
     }
+
+    function checkVotingStatus(uint _siteId) public view returns(uint) {
+        require(_siteId < 0, "Invaild Site Id");
+
+        for(uint256 i = 0;i < contents.length; i++) {
+            if(contents[i].contentType == true || contents[i].id != _siteId){
+                continue;
+            }
+
+            if(contents[i].endAt > block.timestamp){
+                return 0;
+            }
+
+            if(contents[i].agreeVoteAmount > contents[i].rejectVoteAmount){
+                return 1;
+            }
+
+            return 2;
+        }
+
+        return 0;
+    }
 }
