@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import { Button } from '@/components/Elements';
 import { Title } from '@/components/Elements/Title';
 import { Site } from '@/components/Site';
+
+import { NewSiteModal } from '@/features/Publisher/SiteList/NewSiteModal';
 
 import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
 
@@ -50,8 +51,12 @@ export const SiteList = () => {
     },
   ]);
 
-  const handleNewSite = () => {
-    alert('new site');
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  const handleCreate = (url: string) => {
+    alert(`create: ${url}`);
   };
 
   return (
@@ -59,9 +64,17 @@ export const SiteList = () => {
       <div className="flex justify-between">
         <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
         <div className="flex items-center">
-          <Button color="secondary" onClick={handleNewSite}>
+          {/* <Button color="secondary" onClick={handleNewSite}>
             NEW SITE
-          </Button>
+          </Button> */}
+          <NewSiteModal
+            onClick={handleOpen}
+            isOpen={isOpen}
+            onClose={handleClose}
+            onCreate={handleCreate}
+          >
+            NEW SITE
+          </NewSiteModal>
         </div>
       </div>
       <div className="flex flex-col gap-12">
