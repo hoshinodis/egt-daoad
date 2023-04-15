@@ -71,17 +71,37 @@ export const CreativeList = () => {
       <div className="flex flex-col gap-12">
         {contractCreatives.map((contractCreative, i) => (
           <Creative
-            key={contractCreative.id}
-            id={contractCreative.id}
-            createdAt={contractCreative.createdAt}
-            expires={contractCreative.endAt}
-            link="https://example.com" // TODO
+            key={contractCreative.id !== undefined ? contractCreative.id.toNumber() : contractCreative.id}
+            id={
+              contractCreative.id !== undefined
+                  ? contractCreative.id.toNumber().toString()
+                  : contractCreative.id
+            }
+            createdAt={
+              new Date(
+                  contractCreative.createdAt !== undefined ? contractCreative.createdAt.toNumber() * 1000 : 0
+              )
+            }
+            expires={
+              new Date(contractCreative.endAt !== undefined ? contractCreative.endAt.toNumber() * 1000 : 0)
+            }
+            link={contractCreative.siteUrl}
             image={creatives[i].img}
-            status={getStatusText(creatives[i].status)}
-            ok={contractCreative.agreeVoteAmount}
-            ng={contractCreative.rejectVoteAmount}
+            status={creatives.length > i ? getStatusText(creatives[i].status) : 'process'}
+            ok={
+              contractCreative.agreeVoteAmount !== undefined
+                  ? contractCreative.agreeVoteAmount.toNumber()
+                  : 0
+            }
+            ng={
+              contractCreative.rejectVoteAmount !== undefined
+                  ? contractCreative.rejectVoteAmount.toNumber()
+                  : 0
+            }
             maxVp={maxVp}
-            onVote={handleVote(contractCreative.id)}
+            onVote={handleVote(contractCreative.id !== undefined
+                ? contractCreative.id.toNumber().toString()
+                : contractCreative.id)}
           />
         ))}
       </div>
