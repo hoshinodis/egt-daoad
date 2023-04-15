@@ -8,7 +8,7 @@ import { setAdvertiserList, setIsCreate } from '@/slice/appSlice';
 import { connectSigner } from '@/utils/contract';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * @package
@@ -80,21 +80,22 @@ export const CreativeList = () => {
       </div>
       <div className="flex flex-col gap-12">
 
-        {contractCreatives.map((contractCreative, i) => (
-          <Creative
-            key={contractCreative.id}
-            id={contractCreative.id}
-            createdAt={contractCreative.createdAt}
-            expires={contractCreative.endAt}
-            image={creatives[i].img}
-            status={getStatusText(creatives[i].status)}
-            ok={contractCreative.agreeVoteAmount}
-            ng={contractCreative.rejectVoteAmount}
-            maxVp={maxVp}
-          />
-        ))
+        {
+          contractCreatives.map((contractCreative, i) => (
+            <Creative
+              key={contractCreative.id}
+              id={contractCreative.id}
+              createdAt={contractCreative.createdAt}
+              expires={contractCreative.endAt}
+              image={creatives[i].img}
+              status={getStatusText(creatives[i].status)}
+              ok={contractCreative.agreeVoteAmount}
+              ng={contractCreative.rejectVoteAmount}
+              maxVp={maxVp}
+            />
+          ))
         }
-      </div >
+      </div>
     </>
   );
 };
