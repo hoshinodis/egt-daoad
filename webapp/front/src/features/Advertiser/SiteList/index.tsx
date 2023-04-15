@@ -47,6 +47,7 @@ export const SiteList = () => {
       });
   }, []);
   console.log(contractSites);
+  console.log(sites);
 
   return (
     <>
