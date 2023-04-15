@@ -38,6 +38,7 @@ export const OverviewList = () => {
         </OverviewCard>
         <OverviewCard
           className="h-48 flex-1"
+          type="advertiser"
           title="Staked ADsGT"
           icon={StakeIcon}
           onStake={handleStake}

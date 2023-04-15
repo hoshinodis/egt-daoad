@@ -7,6 +7,7 @@ import { StakeModal } from '@/components/OverviewCard/StakeModal';
 
 export type OverviewCardPropsType = {
   className?: string;
+  type?: 'advertiser' | 'publisher';
   children: React.ReactNode;
   maxVp?: number;
   title: string;
@@ -15,6 +16,7 @@ export type OverviewCardPropsType = {
 };
 export const OverviewCard = ({
   className,
+  type,
   children,
   maxVp,
   title,
@@ -27,15 +29,18 @@ export const OverviewCard = ({
 
   return (
     <Card className={clsx('relative flex flex-col justify-around px-6', className)}>
-      {onStake && maxVp && (
+      {type && onStake && maxVp && (
         <StakeModal
           className="absolute top-5 right-0"
+          type={type === 'advertiser' ? 'adsgt' : 'megt'}
           onClick={handleOpen}
           isOpen={isOpen}
           onClose={handleClose}
           maxVp={maxVp}
           onStake={onStake}
-        />
+        >
+          STAKE
+        </StakeModal>
       )}
       <Icon className="absolute bottom-0 right-3 p-0" size="sm" src={icon} alt={title} />
       <p className="text-neutral-10/70 text-18-semi">{title}</p>

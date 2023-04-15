@@ -5,23 +5,31 @@ import { Modal } from '@/components/Elements/Modal';
 import { ModalActions } from '@/components/Elements/Modal/ModalActions';
 import { ModalContents } from '@/components/Elements/Modal/ModalContents';
 import { ModalTitle } from '@/components/Elements/Modal/ModalTitle';
+import { Title } from '@/components/Elements/Title';
 import { NumberField } from '@/components/Form/NumberField';
+
+import AdsGtStaking from '@/assets/title/adsgt-staking.svg';
+import MeGtStaking from '@/assets/title/megt-staking.svg';
 
 export type StakeModalPropsType = {
   className?: string;
+  type: 'adsgt' | 'megt';
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   isOpen: boolean;
   onClose: (event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void;
   maxVp: number;
   onStake: (amount: number) => void;
+  children: React.ReactNode;
 };
 export const StakeModal = ({
   className,
+  type,
   onClick,
   isOpen,
   onClose,
   maxVp,
   onStake,
+  children,
 }: StakeModalPropsType) => {
   const [value, setValue] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
@@ -47,10 +55,12 @@ export const StakeModal = ({
   return (
     <>
       <Button className={className} color="secondary" onClick={onClick}>
-        STAKE
+        {children}
       </Button>
       <Modal isOpen={isOpen} onClose={handleClose}>
-        <ModalTitle>ADSGT STAKING</ModalTitle>
+        <ModalTitle className="h-14">
+          <Title src={type === 'adsgt' ? AdsGtStaking : MeGtStaking} alt="stake" />
+        </ModalTitle>
         <ModalContents>
           <NumberField
             label="Choose Amount to Stake"

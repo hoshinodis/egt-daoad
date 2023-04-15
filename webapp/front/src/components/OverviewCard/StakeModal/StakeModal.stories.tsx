@@ -12,6 +12,7 @@ export default {
   component: StakeModal,
   args: {
     isOpen: true,
+    children: 'STAKE',
   },
 } as ComponentMeta<T>;
 
@@ -20,5 +21,15 @@ const Template: ComponentStory<T> = (args) => <StakeModal {...args} />;
 /**
  * @private
  */
-export const Default = Template.bind({});
-Default.args = {};
+export const AdsGt = Template.bind({});
+AdsGt.args = {
+  type: 'adsgt',
+};
+
+/**
+ * @private
+ */
+export const MeGt = Template.bind({});
+MeGt.args = {
+  type: 'megt',
+};
