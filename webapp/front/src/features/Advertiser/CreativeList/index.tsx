@@ -59,6 +59,8 @@ export const CreativeList = () => {
 
       const gasPrice = await getGasPrice();
 
+      console.log(unixTime, url);
+
       const tx = await connectSigner(daoContract).createContent(true, unixTime, url, {
         gasLimit: 5000000,
         gasPrice,

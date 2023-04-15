@@ -43,7 +43,7 @@ export const SiteList = () => {
 
       const gasPrice = await getGasPrice();
 
-      const tx = await connectSigner(daoContract).createContent(isAdvertiser, unixTime, url, {
+      const tx = await connectSigner(daoContract).createContent(false, unixTime, url, {
         gasLimit: 5000000,
         gasPrice,
       });
