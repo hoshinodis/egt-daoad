@@ -8,7 +8,7 @@ import { Site } from '@/components/Site';
 import { getGasPrice, connectSigner } from '@/utils/contract';
 
 import { RootState } from '@/app/store';
-import MySitesTitle from '@/assets/title/my-sites.svg';
+import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
 import { setSiteList } from '@/slice/appSlice';
 
 /**
@@ -93,7 +93,7 @@ export const SiteList = () => {
 
   return (
     <>
-      <Title className="my-8" src={MySitesTitle} alt="voting list of sites" />
+      <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
       <div className="flex flex-col gap-12">
         {contractSites.map((contractSite, i) => (
           <Site
