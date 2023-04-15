@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
  * @package
  */
 export const CreativeList = () => {
-  const [maxVp] = useState(80);
+  const maxVp = useSelector((state: RootState) => state.app.ADsGTVP);
 
   const [isOpen, setIsOpen] = useState(false);
 

@@ -11,7 +11,7 @@ import { RootState } from '@/app/store';
  * @package
  */
 export const SiteList = () => {
-  const [maxVp] = useState(80);
+  const maxVp = useSelector((state: RootState) => state.app.ADsGTVP);
 
   const handleVote = (id: string) => (checked: boolean, vp: number) => {
     alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);

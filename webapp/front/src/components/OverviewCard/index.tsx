@@ -29,7 +29,7 @@ export const OverviewCard = ({
 
   return (
     <Card className={clsx('relative flex flex-col justify-around px-6', className)}>
-      {type && onStake && maxVp && (
+      {type && onStake && !!maxVp && (
         <StakeModal
           className="absolute top-5 right-0"
           type={type === 'advertiser' ? 'adsgt' : 'megt'}

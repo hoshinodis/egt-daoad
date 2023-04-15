@@ -14,7 +14,7 @@ import { setSiteList } from '@/slice/appSlice';
  * @package
  */
 export const SiteList = () => {
-  const [maxVp] = useState(80);
+  const maxVp = useSelector((state: RootState) => state.app.MeGTVP);
 
 
   const [isOpen, setIsOpen] = useState(false);

@@ -15,7 +15,7 @@ import { RootState } from '@/app/store';
  * @package
  */
 export const OverviewList = () => {
-  const [maxVp] = useState(80);
+  const maxVp = useSelector((state: RootState) => state.app.ADsGTVP);
 
   const adsGt = useSelector((state: RootState) => state.app.rewardADsAmount)
   const formattedAdsGt = useMemo(() => adsGt.toLocaleString(), [adsGt]);

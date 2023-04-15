@@ -15,7 +15,7 @@ import { RootState } from '@/app/store';
  * @package
  */
 export const OverviewList = () => {
-  const [maxVp] = useState(80);
+  const maxVp = useSelector((state: RootState) => state.app.MeGTVP);
 
   const meGt = useSelector((state: RootState) => state.app.rewardMeAmount);
   const formattedMeGt = useMemo(() => meGt.toLocaleString(), [meGt]);
