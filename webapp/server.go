@@ -64,6 +64,7 @@ func (s *Server) setupEcho() {
 	echo.NotFoundHandler = func(c echo.Context) error {
 		return c.File("front/dist/index.html")
 	}
+	e.Static("/", "front/dist/")
 
 	// health check用
 	e.GET("/hello", hello)
