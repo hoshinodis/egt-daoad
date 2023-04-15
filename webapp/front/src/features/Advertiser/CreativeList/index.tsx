@@ -119,7 +119,11 @@ export const CreativeList = () => {
       <div className="flex flex-col gap-12">
         {contractCreatives.map((contractCreative, i) => (
           <Creative
-            key={contractCreative.id !== undefined ? contractCreative.id.toNumber() : contractCreative.id}
+            key={
+              contractCreative.id !== undefined
+                ? contractCreative.id.toNumber()
+                : contractCreative.id
+            }
             id={
               contractCreative.id !== undefined
                 ? contractCreative.id.toNumber().toString()
@@ -127,14 +131,18 @@ export const CreativeList = () => {
             }
             createdAt={
               new Date(
-                contractCreative.createdAt !== undefined ? contractCreative.createdAt.toNumber() * 1000 : 0
-                )
+                contractCreative.createdAt !== undefined
+                  ? contractCreative.createdAt.toNumber() * 1000
+                  : 0
+              )
             }
             expires={
-              new Date(contractCreative.endAt !== undefined ? contractCreative.endAt.toNumber() * 1000 : 0)
+              new Date(
+                contractCreative.endAt !== undefined ? contractCreative.endAt.toNumber() * 1000 : 0
+              )
             }
             link={contractCreative.siteUrl}
-            image={creatives[i].img}
+            image="image"
             status={creatives.length > i ? getStatusText(creatives[i].status) : 'process'}
             ok={
               contractCreative.agreeVoteAmount !== undefined
