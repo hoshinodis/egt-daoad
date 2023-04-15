@@ -16,12 +16,12 @@ import { setSiteList } from '@/slice/appSlice';
 export const SiteList = () => {
   const [maxVp] = useState(80);
 
-  const sites = useSelector((state: RootState) => state.app.siteList)
-  const contractSites = useSelector((state: RootState) => state.app.contractSiteList)
 
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
+  const sites = useSelector((state: RootState) => state.app.siteList)
+  const contractSites = useSelector((state: RootState) => state.app.contractSiteList)
 
   const handleCreate = (url: string) => {
     alert(`create: ${url}`);
