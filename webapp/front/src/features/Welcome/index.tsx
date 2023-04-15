@@ -10,7 +10,6 @@ import TitleIcon from '@/assets/icons/title.svg';
 import { setAddress, setIsAdmin } from '@/slice/appSlice';
 
 const { ethereum } = window;
-console.log(ethereum);
 
 const PUBKEY = '0x81d33b63457C311F33241b1e9A40d3DA46237478';
 
