@@ -52,6 +52,7 @@ export const Site = ({
   maxVp,
   onVote,
 }: SitePropsType) => {
+  console.log('id', id);
   const isVote = useMemo(
     () => status === 'process' && expires !== undefined && onVote !== undefined,
     [status, expires, onVote]

@@ -48,6 +48,7 @@ export const SiteList = () => {
   }, []);
   console.log(contractSites);
   console.log(sites);
+  console.log(contractSites.length && contractSites[0].id.toNumber());
 
   return (
     <>
@@ -55,14 +56,26 @@ export const SiteList = () => {
       <div className="flex flex-col gap-12">
         {contractSites.map((contractSite, i) => (
           <Site
-            key={contractSite[i].id}
-            id={contractSite[i].id}
+            key={contractSite.id !== undefined ? contractSite.id.toNumber() : contractSite.id}
+            id={
+              contractSite.id !== undefined
+                ? contractSite.id.toNumber().toString()
+                : contractSite.id
+            }
             url={sites.length > i ? sites[i].url : ''}
             createdAt={new Date()}
             status={sites.length > i ? getStatusText(sites[i].status) : 'process'}
             expires={new Date()}
-            ok={contractSite[i].agreeVoteAmount}
-            ng={contractSite[i].rejectVoteAmount}
+            ok={
+              contractSite.agreeVoteAmount !== undefined
+                ? contractSite.agreeVoteAmount.toNumber()
+                : 0
+            }
+            ng={
+              contractSite.rejectVoteAmount !== undefined
+                ? contractSite.rejectVoteAmount.toNumber()
+                : 0
+            }
             maxVp={maxVp}
           />
         ))}
