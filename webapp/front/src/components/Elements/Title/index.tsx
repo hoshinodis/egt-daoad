@@ -6,7 +6,7 @@ export type TitlePropsType = {
   alt: string;
 };
 export const Title = ({ className, src, alt }: TitlePropsType) => (
-  <div className={clsx('h-10', className)}>
+  <div className={clsx('h-6', className)}>
     <img className="object-contain" src={src} alt={alt} />
   </div>
 );

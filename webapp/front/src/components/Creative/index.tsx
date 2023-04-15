@@ -4,7 +4,12 @@ import clsx from 'clsx';
 
 import { Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
+import { Title } from '@/components/Elements/Title';
 import { VoteModal } from '@/components/VoteModal';
+
+import PassedTitle from '@/assets/title/passed.svg';
+import RejectedTitle from '@/assets/title/rejected.svg';
+import VoteInProcessTitle from '@/assets/title/vote-in-process.svg';
 
 const getTimeDifference = (date: Date): string => {
   const now = new Date();
@@ -63,7 +68,19 @@ export const Creative = ({
     <div className={clsx('flex flex-col', className)}>
       <div className="flex">
         <Band color={status} direction="vertical">
-          VOTE IN {status}
+          <Title
+            className="flex h-48 w-48 translate-y-[370%] -rotate-90 justify-end"
+            src={
+              status === 'process'
+                ? VoteInProcessTitle
+                : status === 'passed'
+                ? PassedTitle
+                : RejectedTitle
+            }
+            alt={
+              status === 'process' ? 'vote in process' : status === 'passed' ? 'passed' : 'rejected'
+            }
+          />
         </Band>
         <Card className="grow">
           <div className="flex">

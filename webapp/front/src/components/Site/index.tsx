@@ -4,7 +4,12 @@ import clsx from 'clsx';
 
 import { Button, Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
+import { Title } from '@/components/Elements/Title';
 import { VoteModal } from '@/components/VoteModal';
+
+import PassedTitle from '@/assets/title/passed.svg';
+import RejectedTitle from '@/assets/title/rejected.svg';
+import VoteInProcessTitle from '@/assets/title/vote-in-process.svg';
 
 const getTimeDifference = (date: Date): string => {
   const now = new Date();
@@ -99,7 +104,22 @@ export const Site = ({
           className={clsx('flex justify-between', isCopyTag ? 'w-3/4' : 'w-full')}
           color={status}
         >
-          <div>VOTE IN {status}</div>
+          <Title
+            src={
+              status === 'process'
+                ? VoteInProcessTitle
+                : status === 'passed'
+                ? PassedTitle
+                : RejectedTitle
+            }
+            alt={
+              status === 'process'
+                ? 'vote in progress'
+                : status === 'passed'
+                ? 'passed'
+                : 'rejected'
+            }
+          />
           <div>
             <span>OK</span>
             <span>{ok}%</span>
