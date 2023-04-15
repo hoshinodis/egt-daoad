@@ -60,16 +60,13 @@ func (s *Server) setupEcho() {
 	e.Use(middleware.Recover())
 
 	// ルートを設定
+	// Not Foundのときはindex.htmlを返す
 	echo.NotFoundHandler = func(c echo.Context) error {
-		return c.Redirect(http.StatusFound, "/")
+		return c.File("front/dist/index.html")
 	}
-	// e.GET("/:path", echo.NotFoundHandler)
 
-	// health check用にしたい
+	// health check用
 	e.GET("/hello", hello)
-
-	// frontend
-	e.Static("/", "front/dist/")
 
 	apiGroup := e.Group("/api")
 	apiRoutes(s, apiGroup)
