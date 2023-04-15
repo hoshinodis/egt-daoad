@@ -52,7 +52,7 @@ export const Advertiser = () => {
   const navigate = useNavigate();
 
   const handleDisonnect = () => {
-    navigate('/welcome');
+    navigate('/');
     dispatch(setIsAdvertiser(true));
     dispatch(setIsAdmin(false));
     dispatch(setIsCreate(false));

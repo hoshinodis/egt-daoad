@@ -7,16 +7,22 @@ import { CreativeList } from '@/features/Publisher/CreativeList';
 import { OverviewList } from '@/features/Publisher/OverviewList';
 import { SiteList } from '@/features/Publisher/SiteList';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsAdvertiser, setIsAdmin, setIsCreate, setIsStaking, setIsVote } from '@/slice/appSlice';
+import {
+  setIsAdvertiser,
+  setIsAdmin,
+  setIsCreate,
+  setIsStaking,
+  setIsVote,
+} from '@/slice/appSlice';
 import { RootState } from '@/app/store';
 
 export const Publisher = () => {
   const address = useSelector((state: RootState) => state.app.address);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleDisonnect = () => {
-    navigate('/welcome');
+    navigate('/');
     dispatch(setIsAdvertiser(true));
     dispatch(setIsAdmin(false));
     dispatch(setIsCreate(false));

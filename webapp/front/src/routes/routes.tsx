@@ -24,7 +24,7 @@ export const routes = [
     element: <Publisher />,
   },
   {
-    path: '/welcome',
+    path: '/',
     element: <Welcome />,
   },
 ] satisfies RouteObject[];
