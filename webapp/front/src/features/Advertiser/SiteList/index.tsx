@@ -39,7 +39,7 @@ export const SiteList = () => {
   react.useEffect(() => {
     fetch('/api/sites')
       .then((res) => {
-        res.text().then((res) => dispatch(setSiteList(Array(res))));
+        res.text().then((res) => dispatch(setSiteList(JSON.parse(res))));
       })
       .catch((err) => {
         console.error(err);

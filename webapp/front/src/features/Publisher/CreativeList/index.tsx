@@ -60,7 +60,7 @@ export const CreativeList = () => {
   useEffect(() => {
     fetch('/api/creatives')
       .then((res) => {
-        res.text().then((res) => dispatch(setAdvertiserList(Array(res))));
+        res.text().then((res) => dispatch(setAdvertiserList(JSON.parse(res))));
       })
       .catch(() => alert('something went wrong'));
   }, []);
