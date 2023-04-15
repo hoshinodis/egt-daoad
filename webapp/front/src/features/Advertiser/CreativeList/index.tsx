@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Creative } from '@/components/Creative';
+import { Button } from '@/components/Elements';
 import { Title } from '@/components/Elements/Title';
 
 import MyCreativesTitle from '@/assets/title/my-creatives.svg';
@@ -31,9 +32,21 @@ export const CreativeList = () => {
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
   ]);
+
+  const handleNewCreative = () => {
+    alert('new creative');
+  };
+
   return (
     <>
-      <Title className="my-8" src={MyCreativesTitle} alt="my creative" />
+      <div className="flex justify-between">
+        <Title className="my-8" src={MyCreativesTitle} alt="my creative" />
+        <div className="flex items-center">
+          <Button color="secondary" onClick={handleNewCreative}>
+            NEW CREATIVE
+          </Button>
+        </div>
+      </div>
       <div className="flex flex-col gap-12">
         {creatives.map((creative) => (
           <Creative key={creative.id} {...creative} />
