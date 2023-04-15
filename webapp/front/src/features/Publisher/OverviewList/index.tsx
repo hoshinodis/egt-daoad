@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import { Title } from '@/components/Elements/Title';
 import { OverviewCard } from '@/components/OverviewCard';
 
+import { RootState } from '@/app/store';
 import GtIcon from '@/assets/icons/gt.svg';
 import SpeedIcon from '@/assets/icons/speed.svg';
 import StakeIcon from '@/assets/icons/stake.svg';
 import VpIcon from '@/assets/icons/vp.svg';
 import PublisherOverviewTitle from '@/assets/title/publisher-overview.svg';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store';
 
 /**
  * @package
@@ -27,9 +28,9 @@ export const OverviewList = () => {
     alert(`stake: ${amount}`);
   };
 
-  const vp = useSelector((state: RootState) => state.app.MeGTVP)
+  const vp = useSelector((state: RootState) => state.app.MeGTVP);
 
-  const regionSpeed = useSelector((state: RootState) => state.app.MeGTVPTime)
+  const regionSpeed = useSelector((state: RootState) => state.app.MeGTVPTime);
 
   return (
     <>

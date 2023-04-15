@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import { Title } from '@/components/Elements/Title';
 import { OverviewCard } from '@/components/OverviewCard';
 
+import { RootState } from '@/app/store';
 import AdsIcon from '@/assets/icons/ads.svg';
 import SpeedIcon from '@/assets/icons/speed.svg';
 import StakeIcon from '@/assets/icons/stake.svg';
 import VpIcon from '@/assets/icons/vp.svg';
 import AdvertiserOverviewTitle from '@/assets/title/advertiser-overview.svg';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store';
 
 /**
  * @package
@@ -17,7 +18,7 @@ import { RootState } from '@/app/store';
 export const OverviewList = () => {
   const maxVp = useSelector((state: RootState) => state.app.ADsGTVP);
 
-  const adsGt = useSelector((state: RootState) => state.app.rewardADsAmount)
+  const adsGt = useSelector((state: RootState) => state.app.rewardADsAmount);
   const formattedAdsGt = useMemo(() => adsGt.toLocaleString(), [adsGt]);
 
   const staked = useSelector((state: RootState) => state.app.stakingADsTokenBalance);
@@ -25,7 +26,7 @@ export const OverviewList = () => {
 
   const handleStake = (amount: number) => {
     alert(`stake: ${amount}`);
-  }
+  };
   const vp = useSelector((state: RootState) => state.app.ADsGTVP);
 
   const regionSpeed = useSelector((state: RootState) => state.app.AdsGTVPTime);
