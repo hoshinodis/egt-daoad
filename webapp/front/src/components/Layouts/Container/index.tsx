@@ -1,6 +1,9 @@
+import clsx from 'clsx';
+
 export type ContainerPropsType = {
+  className?: string;
   children: React.ReactNode;
 };
-export const Container = ({ children }: ContainerPropsType) => (
-  <div className="px-12">{children}</div>
+export const Container = ({ className, children }: ContainerPropsType) => (
+  <div className={clsx('px-12', className)}>{children}</div>
 );

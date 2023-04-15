@@ -6,6 +6,7 @@ const { NotFound } = lazyImport(() => import('../features/NotFound'), 'NotFound'
 const { Top } = lazyImport(() => import('../features/Top'), 'Top');
 const { Advertiser } = lazyImport(() => import('../features/Advertiser'), 'Advertiser');
 const { Publisher } = lazyImport(() => import('../features/Publisher'), 'Publisher');
+const { Welcome } = lazyImport(() => import('../features/Welcome'), 'Welcome');
 
 /**
  * @package
@@ -26,5 +27,9 @@ export const routes = [
   {
     path: '/publisher',
     element: <Publisher />,
+  },
+  {
+    path: '/welcome',
+    element: <Welcome />,
   },
 ] satisfies RouteObject[];

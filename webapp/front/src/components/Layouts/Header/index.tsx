@@ -1,3 +1,5 @@
+import React from 'react';
+
 import clsx from 'clsx';
 
 import { Button, Icon } from '@/components/Elements';
@@ -9,8 +11,16 @@ export type HeaderPropsType = {
   className?: string;
   address?: string;
   current?: 'advertiser' | 'publisher';
+  onConnect?: React.MouseEventHandler<HTMLButtonElement>;
+  onDisconnect?: React.MouseEventHandler<HTMLButtonElement>;
 };
-export const Header = ({ className, address, current }: HeaderPropsType) => (
+export const Header = ({
+  className,
+  address,
+  current,
+  onConnect,
+  onDisconnect,
+}: HeaderPropsType) => (
   <div className={clsx('flex justify-between', className)}>
     <Icon src={LogoIcon} alt="logo" size="sm" />
     {address && (
@@ -33,14 +43,16 @@ export const Header = ({ className, address, current }: HeaderPropsType) => (
           -4
         )}`}</p>
       )}
-      {address ? (
-        <Button color="neutral" onClick={() => {}}>
+      {address && onDisconnect ? (
+        <Button color="neutral" onClick={onDisconnect}>
           DISCONNECT
         </Button>
       ) : (
-        <Button color="secondary" onClick={() => {}}>
-          CONNECT WALLET
-        </Button>
+        onConnect && (
+          <Button color="secondary" onClick={onConnect}>
+            CONNECT WALLET
+          </Button>
+        )
       )}
     </div>
   </div>
