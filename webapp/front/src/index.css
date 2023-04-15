@@ -16,7 +16,7 @@
   }
 
   .text-18-wide {
-    @apply font-sans not-italic leading-[130%] text-[18px] tracking-[0.07em] uppercase;
+    @apply font-sans not-italic leading-[130%] text-[18px] tracking-[0.07em] font-bold uppercase;
   }
 
   .text-22-semi {
@@ -24,11 +24,11 @@
   }
 
   .text-24-black {
-    @apply font-sans not-italic leading-[130%] text-[24px] font-black;
+    @apply font-sans not-italic leading-[130%] text-[24px] font-extrabold;
   }
 
   .text-24-wide {
-    @apply font-sans not-italic leading-[130%] text-[24px] tracking-[0.08em] uppercase;
+    @apply font-sans not-italic leading-[130%] text-[24px] tracking-[0.08em] font-black uppercase;
   }
 
   .text-28-semi {

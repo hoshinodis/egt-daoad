@@ -12,7 +12,7 @@ export type LinkPropsType = {
 };
 export const Link = ({ href, newTab, className, children }: LinkPropsType) => {
   const param = {
-    className: clsx('font-medium text-indigo-500 hover:text-indigo-400', className),
+    className: clsx(className),
 
     target: newTab ? '_blank' : undefined,
     rel: newTab ? 'noreferrer' : undefined,
