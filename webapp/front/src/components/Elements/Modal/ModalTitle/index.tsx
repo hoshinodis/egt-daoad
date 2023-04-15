@@ -8,7 +8,7 @@ export const ModalTitle = ({ className, children }: ModalTitlePropsType) => (
   <div>
     <div
       className={clsx(
-        'h-8 w-full overflow-hidden text-ellipsis whitespace-nowrap text-xl leading-8',
+        'h-12 w-full overflow-hidden text-ellipsis whitespace-nowrap text-xl leading-8',
         className
       )}
     >
