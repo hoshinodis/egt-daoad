@@ -31,6 +31,7 @@ export const SiteList = () => {
   const contractSites = useSelector((state: RootState) => state.app.contractSiteList);
 
   const handleCreate = async (url: string) => {
+    console.log('a;slkdjgalskjg;lajsdlgjadskgj;ajkg');
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
       await fetch('/api/sites', {
@@ -94,9 +95,9 @@ export const SiteList = () => {
           <Site
             key={contractSite[i].id}
             id={contractSite[i].id}
-            url={sites[i].url}
+            url={sites.length >= i ? sites[i].url : ''}
             createdAt={new Date(contractSite[i].createdAt * 1000)}
-            status={getStatusText(sites[i].status)}
+            status={sites.length >= i ? getStatusText(sites[i].status) : 'process'}
             expires={new Date(contractSite[i].endAt * 1000)}
             ok={contractSite[i].agreeVoteAmount}
             ng={contractSite[i].rejectVoteAmount}

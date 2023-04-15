@@ -1,11 +1,12 @@
-import react, { useState } from 'react';
+import react from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Title } from '@/components/Elements/Title';
 import { Site } from '@/components/Site';
 
-import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
 import { setSiteList } from '@/slice/appSlice';
 
 /**
@@ -18,26 +19,34 @@ export const SiteList = () => {
     alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
   };
 
-  const sites = useSelector((state: RootState) => state.app.siteList)
-  const contractSites = useSelector((state: RootState) => state.app.contractSiteList)
+  const sites = useSelector((state: RootState) => state.app.siteList);
+  const contractSites = useSelector((state: RootState) => state.app.contractSiteList);
 
   const getStatusText = (status: number) => {
     if (status === 1) {
-      return "passed"
+      return 'passed';
     }
 
     if (status === 2) {
-      return "rejected"
+      return 'rejected';
     }
 
-    return "process"
-  }
+    return 'process';
+  };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   react.useEffect(() => {
-    fetch("/api/sites").then((res) => { res.text().then(res => dispatch(setSiteList(Array(res)))) }).catch((err) => { console.error(err); alert("something went wrong") })
-  }, [])
+    fetch('/api/sites')
+      .then((res) => {
+        res.text().then((res) => dispatch(setSiteList(Array(res))));
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('something went wrong');
+      });
+  }, []);
+  console.log(contractSites);
 
   return (
     <>
@@ -47,9 +56,9 @@ export const SiteList = () => {
           <Site
             key={contractSite[i].id}
             id={contractSite[i].id}
-            url={sites[i].url}
+            url={sites.length >= i ? sites[i].url : ''}
             createdAt={new Date(contractSite[i].createdAt * 1000)}
-            status={getStatusText(sites[i].status)}
+            status={sites.length >= i ? getStatusText(sites[i].status) : 'process'}
             expires={new Date(contractSite[i].endAt * 1000)}
             ok={contractSite[i].agreeVoteAmount}
             ng={contractSite[i].rejectVoteAmount}
