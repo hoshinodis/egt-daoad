@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import { Container } from '@/components/Layouts/Container';
@@ -8,13 +6,22 @@ import { Header } from '@/components/Layouts/Header';
 import { CreativeList } from '@/features/Publisher/CreativeList';
 import { OverviewList } from '@/features/Publisher/OverviewList';
 import { SiteList } from '@/features/Publisher/SiteList';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsAdvertiser, setIsAdmin, setIsCreate, setIsStaking, setIsVote } from '@/slice/appSlice';
+import { RootState } from '@/app/store';
 
 export const Publisher = () => {
-  const [address] = useState('0x1234567890123456789012345678901234567890');
+  const address = useSelector((state: RootState) => state.app.address);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const handleDisonnect = () => {
     navigate('/welcome');
+    dispatch(setIsAdvertiser(true));
+    dispatch(setIsAdmin(false));
+    dispatch(setIsCreate(false));
+    dispatch(setIsStaking(false));
+    dispatch(setIsVote(''));
   };
 
   return (

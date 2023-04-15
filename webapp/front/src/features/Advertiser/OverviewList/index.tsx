@@ -8,6 +8,8 @@ import SpeedIcon from '@/assets/icons/speed.svg';
 import StakeIcon from '@/assets/icons/stake.svg';
 import VpIcon from '@/assets/icons/vp.svg';
 import AdvertiserOverviewTitle from '@/assets/title/advertiser-overview.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 /**
  * @package
@@ -15,19 +17,18 @@ import AdvertiserOverviewTitle from '@/assets/title/advertiser-overview.svg';
 export const OverviewList = () => {
   const [maxVp] = useState(80);
 
-  const [adsGt] = useState(8255);
+  const adsGt = useSelector((state: RootState) => state.app.rewardADsAmount)
   const formattedAdsGt = useMemo(() => adsGt.toLocaleString(), [adsGt]);
 
-  const [staked] = useState(4211);
+  const staked = useSelector((state: RootState) => state.app.stakingADsTokenBalance);
   const formattedStaked = useMemo(() => staked.toLocaleString(), [staked]);
 
   const handleStake = (amount: number) => {
     alert(`stake: ${amount}`);
-  };
+  }
+  const vp = useSelector((state: RootState) => state.app.ADsGTVP);
 
-  const [vp] = useState(80);
-
-  const [regionSpeed] = useState(1.4);
+  const regionSpeed = useSelector((state: RootState) => state.app.AdsGTVPTime);
 
   return (
     <>

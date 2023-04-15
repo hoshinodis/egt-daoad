@@ -23,13 +23,16 @@
     "_templates/**/*.cjs"
   ],
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@tanstack/react-query": "^4.20.9",
     "axios": "^1.2.2",
     "clsx": "^1.2.1",
+    "ethers": "5.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-modal": "^3.16.1",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1"
   },
   "devDependencies": {

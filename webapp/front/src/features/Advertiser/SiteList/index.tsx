@@ -4,6 +4,8 @@ import { Title } from '@/components/Elements/Title';
 import { Site } from '@/components/Site';
 
 import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 /**
  * @package
@@ -15,52 +17,37 @@ export const SiteList = () => {
     alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
   };
 
-  const [sites] = useState<
-    {
-      id: string;
-      status: 'process' | 'passed' | 'rejected';
-      url: string;
-      createdAt: Date;
-      ok: number;
-      ng: number;
-      expires?: Date;
-      onVote?: (checked: boolean, vp: number) => void;
-    }[]
-  >([
-    {
-      id: '0001',
-      status: 'process',
-      url: 'https://example.com',
-      createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
-      ok: 50,
-      ng: 50,
-      expires: new Date(new Date().getTime() + Math.random() * 1000000),
-      onVote: handleVote('0001'),
-    },
-    {
-      id: '0002',
-      status: 'passed',
-      url: 'https://example.com',
-      createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
-      ok: 50,
-      ng: 50,
-    },
-    {
-      id: '0003',
-      status: 'rejected',
-      url: 'https://example.com',
-      createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
-      ok: 50,
-      ng: 50,
-    },
-  ]);
+  const sites = useSelector((state: RootState) => state.app.siteList)
+  const contractSites = useSelector((state: RootState) => state.app.contractSiteList)
+
+  const getStatusText = (status: number) => {
+    if (status === 1) {
+      return "passed"
+    }
+
+    if (status === 2) {
+      return "rejected"
+    }
+
+    return "process"
+  }
 
   return (
     <>
       <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
       <div className="flex flex-col gap-12">
-        {sites.map((site) => (
-          <Site key={site.id} {...site} maxVp={maxVp} />
+        {contractSites.map((contractSite, i) => (
+          <Site
+            key={contractSite.id}
+            id={contractSite.id}
+            url={sites[i].url}
+            createdAt={contractSite.createdAt}
+            status={getStatusText(sites[i].status)}
+            expires={contractSite.endAt}
+            ok={contractSite.agreeVoteAmount}
+            ng={contractSite.rejectVoteAmount}
+            maxVp={maxVp}
+          />
         ))}
       </div>
     </>

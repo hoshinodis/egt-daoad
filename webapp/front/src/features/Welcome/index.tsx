@@ -4,12 +4,74 @@ import { Container } from '@/components/Layouts/Container';
 import { Header } from '@/components/Layouts/Header';
 
 import TitleIcon from '@/assets/icons/title.svg';
+import { setAddress, setIsAdmin } from '@/slice/appSlice';
+import { ethers } from 'ethers';
+import { useDispatch } from 'react-redux';
+
+const { ethereum } = window
+
+const PUBKEY = "0x81d33b63457C311F33241b1e9A40d3DA46237478"
 
 export const Welcome = () => {
   const navigate = useNavigate();
   const handleConnect = () => {
     navigate('/advertiser');
+    onConnectMetamask();
   };
+
+  const dispatch = useDispatch()
+
+  const onConnectMetamask = async () => {
+    if (ethereum) {
+      try {
+        if (ethereum.networkVersion !== 1442) {
+          try {
+            await ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: ethers.utils.hexValue(1442) }],
+            });
+          } catch (e: any) {
+            if (e.code === 4902) {
+              await ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainName: "Mumbai",
+                    chainId: ethers.utils.hexValue(1442),
+                    rpcUrls: ["https://rpc.ankr.com/polygon_mumbai"],
+                  },
+                ],
+              });
+            }
+          }
+        }
+
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+
+        if (accounts[0]) {
+          dispatch(setAddress(accounts[0]))
+        }
+
+        if (PUBKEY.toLowerCase() === accounts[0].toLowerCase()) {
+          dispatch(setIsAdmin(true))
+        } else {
+          dispatch(setIsAdmin(false))
+        }
+      } catch (error) {
+        console.log("Error connecting...");
+      }
+    } else {
+      window.open("https://metamask.io");
+      alert("Meta Mask not detected");
+    }
+  }
+
+  ethereum.on('accountsChanged', function () {
+    onConnectMetamask()
+  });
+
   return (
     <Container className="relative">
       <Header className="relative z-10" onConnect={handleConnect} />

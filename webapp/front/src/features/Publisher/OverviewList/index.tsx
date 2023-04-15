@@ -8,6 +8,8 @@ import SpeedIcon from '@/assets/icons/speed.svg';
 import StakeIcon from '@/assets/icons/stake.svg';
 import VpIcon from '@/assets/icons/vp.svg';
 import PublisherOverviewTitle from '@/assets/title/publisher-overview.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 /**
  * @package
@@ -15,19 +17,19 @@ import PublisherOverviewTitle from '@/assets/title/publisher-overview.svg';
 export const OverviewList = () => {
   const [maxVp] = useState(80);
 
-  const [meGt] = useState(1234);
+  const meGt = useSelector((state: RootState) => state.app.rewardMeAmount);
   const formattedMeGt = useMemo(() => meGt.toLocaleString(), [meGt]);
 
-  const [staked] = useState(3222);
+  const staked = useSelector((state: RootState) => state.app.stakingMeTokenBalance);
   const formattedStaked = useMemo(() => staked.toLocaleString(), [staked]);
 
   const handleStake = (amount: number) => {
     alert(`stake: ${amount}`);
   };
 
-  const [vp] = useState(80);
+  const vp = useSelector((state: RootState) => state.app.MeGTVP)
 
-  const [regionSpeed] = useState(1.4);
+  const regionSpeed = useSelector((state: RootState) => state.app.MeGTVPTime)
 
   return (
     <>
