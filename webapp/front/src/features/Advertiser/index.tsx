@@ -18,7 +18,7 @@ const stakingADsTokenContractAddress = "0xCEdc57A73EFC5a9B599340f348D3Ccc44e2250
 const stakingMeTokenContractAddress = "0xE83aea3CcE8d3C479CEebbF0e10DD2F39F10F0d0";
 const rewardADsTokenContractAddress = "0x439e963F9149413fBB6a8F9594C5dEDE2f25cD2b";
 const rewardMeTokenContractAddress = "0x01385B66cfc7E4B0657812cED9023D5692608956";
-const daoContractAddress = "0x439e963F9149413fBB6a8F9594C5dEDE2f25cD2b";
+const daoContractAddress = "0x13A473946654605C0ecb48c1BB0C6facED43bF75";
 const PUBKEY = "0x81d33b63457C311F33241b1e9A40d3DA46237478"
 
 export const Advertiser = () => {

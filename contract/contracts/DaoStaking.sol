@@ -215,7 +215,7 @@ contract DaoStaking is Ownable, ReentrancyGuard {
     }
 
     function createContent(bool _contentType, uint256 _endAt, string memory _siteUrl) external {
-        require(_endAt > block.timestamp, "Invalid End Time");
+        require(_endAt < block.timestamp, "Invalid End Time");
 
         Content memory content;
         content.id = contents.length;

@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import react, { useState } from 'react';
 
 import { Title } from '@/components/Elements/Title';
 import { Site } from '@/components/Site';
 
 import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import { setSiteList } from '@/slice/appSlice';
 
 /**
  * @package
@@ -32,20 +33,26 @@ export const SiteList = () => {
     return "process"
   }
 
+  const dispatch = useDispatch()
+
+  react.useEffect(() => {
+    fetch("/api/sites").then((res) => { res.text().then(res => dispatch(setSiteList(Array(res)))) }).catch((err) => { console.error(err); alert("something went wrong") })
+  }, [])
+
   return (
     <>
       <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
       <div className="flex flex-col gap-12">
         {contractSites.map((contractSite, i) => (
           <Site
-            key={contractSite.id}
-            id={contractSite.id}
+            key={contractSite[i].id}
+            id={contractSite[i].id}
             url={sites[i].url}
-            createdAt={contractSite.createdAt}
+            createdAt={new Date()}
             status={getStatusText(sites[i].status)}
-            expires={contractSite.endAt}
-            ok={contractSite.agreeVoteAmount}
-            ng={contractSite.rejectVoteAmount}
+            expires={contractSite[i].endAt}
+            ok={contractSite[i].agreeVoteAmount}
+            ng={contractSite[i].rejectVoteAmount}
             maxVp={maxVp}
           />
         ))}

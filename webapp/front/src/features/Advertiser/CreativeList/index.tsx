@@ -7,11 +7,11 @@ import { Title } from '@/components/Elements/Title';
 
 import { CreativeModal } from '@/features/Advertiser/CreativeList/CreativeModal';
 
-import { connectSigner } from '@/utils/contract';
-
-import { RootState } from '@/app/store';
 import MyCreativesTitle from '@/assets/title/my-creatives.svg';
 import { setAdvertiserList, setIsCreate } from '@/slice/appSlice';
+import { connectSigner } from '@/utils/contract';
+import { RootState } from '@/app/store';
+import { getGasPrice } from '@/utils/contract';
 
 /**
  * @package
@@ -25,19 +25,33 @@ export const CreativeList = () => {
 
   const handleModalClose = () => setIsOpen(false);
 
-  const handleCreate = (file: File, link: string) => alert(`create${file.name} ${link}`);
-  const creatives = useSelector((state: RootState) => state.app.advertiserList);
-  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList);
+  const address = useSelector((state: RootState) => state.app.address)
+  const creatives = useSelector((state: RootState) => state.app.advertiserList)
+  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList)
 
   const daoContract = useSelector((state: RootState) => state.app.daoContract);
   const isAdvertiser = useSelector((state: RootState) => state.app.isAdvertiser);
   const endDate = useSelector((state: RootState) => state.app.endDate);
   const dispatch = useDispatch();
 
-  const handleNewCreative = async () => {
+  const handleCreate = async (file: File) => {
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
-      const tx = await connectSigner(daoContract).createContent(isAdvertiser, unixTime);
+      const url = "https://www.google.com/?hl=ja"
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      await fetch("/api/creatives", { method: 'POST', body: JSON.stringify({ id: creatives.length + 1, wallet_address: address, link: url, img: "" }) })
+
+      const gasPrice = await getGasPrice()
+
+      const tx = await connectSigner(daoContract).createContent(
+        isAdvertiser,
+        unixTime,
+        url, {
+        gasLimit: 5000000,
+        gasPrice: gasPrice
+      }
+      );
 
       await tx.wait();
       setIsCreate(false);
@@ -46,6 +60,7 @@ export const CreativeList = () => {
       console.log('Err: ', e);
     }
   };
+
 
   const getStatusText = (status: number) => {
     if (status === 1) {

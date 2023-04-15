@@ -54,7 +54,7 @@ const initialState: AppState = {
   rewardMeAmount: 0,
   rewardADsSpeed: 0,
   rewardMeSpeed: 0,
-  endDate: 0,
+  endDate: 10,
   ADsGTVP: 0,
   AdsGTVPTime: 0,
   MeGTVP: 0,

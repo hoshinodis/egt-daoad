@@ -16,3 +16,9 @@ export const connectSigner = (contract: ethers.Contract): ethers.Contract => {
   const signer = provider.getSigner();
   return contract.connect(signer);
 };
+
+export const getGasPrice = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const gasPrice = await provider.getGasPrice();
+  return gasPrice;
+};

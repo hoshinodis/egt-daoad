@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { Creative } from '@/components/Creative';
 import { Title } from '@/components/Elements/Title';
-
-import { RootState } from '@/app/store';
 import VotingListOfCreatives from '@/assets/title/voting-list-of-creatives.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import { setAdvertiserList } from '@/slice/appSlice';
 
 /**
  * @package
@@ -16,8 +17,10 @@ export const CreativeList = () => {
     alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
   };
 
-  const creatives = useSelector((state: RootState) => state.app.advertiserList);
-  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList);
+  const dispatch = useDispatch()
+
+  const creatives = useSelector((state: RootState) => state.app.advertiserList)
+  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList)
 
   const getStatusText = (status: number) => {
     if (status === 1) {
@@ -30,6 +33,10 @@ export const CreativeList = () => {
 
     return 'process';
   };
+
+  useEffect(() => {
+    fetch("/api/creatives").then((res) => { res.text().then(res => dispatch(setAdvertiserList(Array(res)))) }).catch(() => alert("something went wrong"))
+  }, [])
 
   return (
     <>
