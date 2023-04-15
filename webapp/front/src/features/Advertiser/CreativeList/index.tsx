@@ -59,7 +59,7 @@ export const CreativeList = () => {
 
       const gasPrice = await getGasPrice();
 
-      const tx = await connectSigner(daoContract).createContent(isAdvertiser, unixTime, url, {
+      const tx = await connectSigner(daoContract).createContent(true, unixTime, url, {
         gasLimit: 5000000,
         gasPrice,
       });
@@ -91,6 +91,9 @@ export const CreativeList = () => {
       })
       .catch(() => alert('something went wrong'));
   }, []);
+
+  console.log('creative1', contractCreatives);
+  console.log('creative2', creatives);
 
   return (
     <>
