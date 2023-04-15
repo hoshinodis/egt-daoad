@@ -56,9 +56,9 @@ export const SiteList = () => {
           <Site
             key={contractSite[i].id}
             id={contractSite[i].id}
-            url={sites.length >= i ? sites[i].url : ''}
+            url={sites.length > i ? sites[i].url : ''}
             createdAt={new Date(contractSite[i].createdAt * 1000)}
-            status={sites.length >= i ? getStatusText(sites[i].status) : 'process'}
+            status={sites.length > i ? getStatusText(sites[i].status) : 'process'}
             expires={new Date(contractSite[i].endAt * 1000)}
             ok={contractSite[i].agreeVoteAmount}
             ng={contractSite[i].rejectVoteAmount}
