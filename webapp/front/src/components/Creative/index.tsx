@@ -29,6 +29,7 @@ export type CreativePropsType = {
   status: 'process' | 'passed' | 'rejected';
   ok?: number;
   ng?: number;
+  onVote?: React.MouseEventHandler<HTMLButtonElement>;
 };
 export const Creative = ({
   className,
@@ -39,10 +40,16 @@ export const Creative = ({
   status,
   ok,
   ng,
+  onVote,
 }: CreativePropsType) => {
   const isVote = useMemo(
-    () => status === 'process' && ok !== undefined && ng !== undefined && expires !== undefined,
-    [status, ok, ng, expires]
+    () =>
+      status === 'process' &&
+      ok !== undefined &&
+      ng !== undefined &&
+      expires !== undefined &&
+      onVote !== undefined,
+    [status, ok, ng, expires, onVote]
   );
 
   return (
@@ -96,7 +103,7 @@ export const Creative = ({
               <span>{ng}%</span>
             </div>
           </Band>
-          <Button className="h-12 w-1/4" color="secondary" onClick={() => {}}>
+          <Button className="h-12 w-1/4" color="secondary" onClick={onVote!}>
             VOTE
           </Button>
         </div>
