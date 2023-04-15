@@ -37,25 +37,25 @@ export const CreativeList = () => {
   const handleCreate = async (file: File, url: string) => {
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
-      const fileReader = new FileReader();
+      // const fileReader = new FileReader();
 
-      fileReader.onload = async function () {
-        const dataURI = this.result;
-        await fetch('/api/creatives', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: creatives.length + 1,
-            wallet_address: address,
-            link: url,
-            img: dataURI,
-          }),
-        });
-      };
+      // fileReader.onload = async function () {
+      //   const dataURI = this.result;
+      //   await fetch('/api/creatives', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       id: creatives.length + 1,
+      //       wallet_address: address,
+      //       link: url,
+      //       img: dataURI,
+      //     }),
+      //   });
+      // };
 
-      fileReader.readAsDataURL(file);
+      // fileReader.readAsDataURL(file);
 
       const gasPrice = await getGasPrice();
 
