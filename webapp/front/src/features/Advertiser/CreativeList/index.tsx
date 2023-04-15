@@ -118,7 +118,7 @@ export const CreativeList = () => {
             image={creatives[i].img}
             status={getStatusText(creatives[i].status)}
             ok={contractCreative.agreeVoteAmount}
-            ng={contractCreative.rejectVoteAmount}
+            ng={contractCreative.disagreeVoteAmount}
             maxVp={maxVp}
           />
         ))}
