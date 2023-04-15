@@ -1,16 +1,17 @@
 package webapp
 
 import (
+	"fmt"
 	"net/http"
 	"math/rand"
 	"time"
-	"fmt"
 
 	"github.com/labstack/echo/v4"
 
 	"github.com/hoshinodis/egt-daoad/webapp/gen/sqlc"
 )
 
+// ad
 func (s *Server) apiServeAd(c echo.Context) error {
 	data, err := s.query.ListCreatives(c.Request().Context())
 	if err != nil {
@@ -24,13 +25,24 @@ func (s *Server) apiServeAd(c echo.Context) error {
 	return c.HTML(http.StatusOK, tag)
 }
 
+// creative
 func (s *Server) apiListCreatives(c echo.Context) error {
-	data, err := s.query.ListCreatives(c.Request().Context())
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
-	}
+	w := c.QueryParam("wallet_address")
+	if w != "" {
+		data, err := s.query.ListCreativesByWalletAddress(c.Request().Context(), w)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
+		}
 
-	return c.JSON(http.StatusOK, data)
+		return c.JSON(http.StatusOK, data)
+	} else {
+		data, err := s.query.ListCreatives(c.Request().Context())
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
+		}
+
+		return c.JSON(http.StatusOK, data)
+	}
 }
 
 func (s *Server) apiCreateCreative(c echo.Context) error {
@@ -48,13 +60,24 @@ func (s *Server) apiCreateCreative(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{"status": true, "message": "Resource created", "ID": response})
 }
 
+// site
 func (s *Server) apiListSites(c echo.Context) error {
-	data, err := s.query.ListSites(c.Request().Context())
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
-	}
+	w := c.QueryParam("wallet_address")
+	if w != "" {
+		data, err := s.query.ListSitesByWalletAddress(c.Request().Context(), w)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
+		}
 
-	return c.JSON(http.StatusOK, data)
+		return c.JSON(http.StatusOK, data)
+	} else {
+		data, err := s.query.ListSites(c.Request().Context())
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, echo.Map{"status": false, "message": err.Error()})
+		}
+
+		return c.JSON(http.StatusOK, data)
+	}
 }
 
 func (s *Server) apiCreateSite(c echo.Context) error {

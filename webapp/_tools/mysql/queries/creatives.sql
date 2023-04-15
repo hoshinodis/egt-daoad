@@ -6,14 +6,14 @@ WHERE id = ? LIMIT 1;
 SELECT * FROM creatives
 ORDER BY id DESC;
 
+-- name: ListCreativesByWalletAddress :many
+SELECT * FROM creatives
+WHERE wallet_address = ?
+ORDER BY id DESC;
+
 -- name: CreateCreative :execlastid
 INSERT INTO creatives (
     id, wallet_address, link, img
 ) VALUES (
              ?, ?, ?, ?
          );
-
--- name: ArchiveCreative :exec
-UPDATE creatives
-SET archived = true
-WHERE id = ?;

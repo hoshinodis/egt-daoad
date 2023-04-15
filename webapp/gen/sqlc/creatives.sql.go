@@ -9,17 +9,6 @@ import (
 	"context"
 )
 
-const archiveCreative = `-- name: ArchiveCreative :exec
-UPDATE creatives
-SET archived = true
-WHERE id = ?
-`
-
-func (q *Queries) ArchiveCreative(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, archiveCreative, id)
-	return err
-}
-
 const createCreative = `-- name: CreateCreative :execlastid
 INSERT INTO creatives (
     id, wallet_address, link, img
@@ -73,6 +62,41 @@ ORDER BY id DESC
 
 func (q *Queries) ListCreatives(ctx context.Context) ([]Creative, error) {
 	rows, err := q.db.QueryContext(ctx, listCreatives)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Creative{}
+	for rows.Next() {
+		var i Creative
+		if err := rows.Scan(
+			&i.ID,
+			&i.WalletAddress,
+			&i.Link,
+			&i.Img,
+			&i.Status,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listCreativesByWalletAddress = `-- name: ListCreativesByWalletAddress :many
+SELECT id, wallet_address, link, img, status FROM creatives
+WHERE wallet_address = ?
+ORDER BY id DESC
+`
+
+func (q *Queries) ListCreativesByWalletAddress(ctx context.Context, walletAddress string) ([]Creative, error) {
+	rows, err := q.db.QueryContext(ctx, listCreativesByWalletAddress, walletAddress)
 	if err != nil {
 		return nil, err
 	}

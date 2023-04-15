@@ -9,14 +9,14 @@ import (
 )
 
 type Querier interface {
-	ArchiveCreative(ctx context.Context, id int64) error
-	ArchiveSite(ctx context.Context, id int64) error
 	CreateCreative(ctx context.Context, arg CreateCreativeParams) (int64, error)
 	CreateSite(ctx context.Context, arg CreateSiteParams) (int64, error)
 	GetCreative(ctx context.Context, id int64) (Creative, error)
 	GetSite(ctx context.Context, id int64) (Site, error)
 	ListCreatives(ctx context.Context) ([]Creative, error)
+	ListCreativesByWalletAddress(ctx context.Context, walletAddress string) ([]Creative, error)
 	ListSites(ctx context.Context) ([]Site, error)
+	ListSitesByWalletAddress(ctx context.Context, walletAddress string) ([]Site, error)
 }
 
 var _ Querier = (*Queries)(nil)

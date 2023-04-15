@@ -9,17 +9,6 @@ import (
 	"context"
 )
 
-const archiveSite = `-- name: ArchiveSite :exec
-UPDATE sites
-SET archived = true
-WHERE id = ?
-`
-
-func (q *Queries) ArchiveSite(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, archiveSite, id)
-	return err
-}
-
 const createSite = `-- name: CreateSite :execlastid
 INSERT INTO sites (
     id, wallet_address, url
@@ -66,6 +55,40 @@ ORDER BY id DESC
 
 func (q *Queries) ListSites(ctx context.Context) ([]Site, error) {
 	rows, err := q.db.QueryContext(ctx, listSites)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Site{}
+	for rows.Next() {
+		var i Site
+		if err := rows.Scan(
+			&i.ID,
+			&i.WalletAddress,
+			&i.Url,
+			&i.Status,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listSitesByWalletAddress = `-- name: ListSitesByWalletAddress :many
+SELECT id, wallet_address, url, status FROM sites
+WHERE wallet_address = ?
+ORDER BY id DESC
+`
+
+func (q *Queries) ListSitesByWalletAddress(ctx context.Context, walletAddress string) ([]Site, error) {
+	rows, err := q.db.QueryContext(ctx, listSitesByWalletAddress, walletAddress)
 	if err != nil {
 		return nil, err
 	}
