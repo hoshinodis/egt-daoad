@@ -7,11 +7,11 @@ import { Title } from '@/components/Elements/Title';
 
 import { CreativeModal } from '@/features/Advertiser/CreativeList/CreativeModal';
 
+import { connectSigner, getGasPrice } from '@/utils/contract';
+
+import { RootState } from '@/app/store';
 import MyCreativesTitle from '@/assets/title/my-creatives.svg';
 import { setAdvertiserList, setIsCreate } from '@/slice/appSlice';
-import { connectSigner } from '@/utils/contract';
-import { RootState } from '@/app/store';
-import { getGasPrice } from '@/utils/contract';
 
 /**
  * @package
@@ -25,9 +25,9 @@ export const CreativeList = () => {
 
   const handleModalClose = () => setIsOpen(false);
 
-  const address = useSelector((state: RootState) => state.app.address)
-  const creatives = useSelector((state: RootState) => state.app.advertiserList)
-  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList)
+  const address = useSelector((state: RootState) => state.app.address);
+  const creatives = useSelector((state: RootState) => state.app.advertiserList);
+  const contractCreatives = useSelector((state: RootState) => state.app.contractAdvertiserList);
 
   const daoContract = useSelector((state: RootState) => state.app.daoContract);
   const isAdvertiser = useSelector((state: RootState) => state.app.isAdvertiser);
@@ -41,21 +41,28 @@ export const CreativeList = () => {
 
       fileReader.onload = async function () {
         const dataURI = this.result;
-        await fetch("/api/creatives", { method: 'POST', body: JSON.stringify({ id: creatives.length + 1, wallet_address: address, link: url, img: dataURI }) })
-      }
+        await fetch('/api/creatives', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: creatives.length + 1,
+            wallet_address: address,
+            link: url,
+            img: dataURI,
+          }),
+        });
+      };
 
       fileReader.readAsDataURL(file);
 
-      const gasPrice = await getGasPrice()
+      const gasPrice = await getGasPrice();
 
-      const tx = await connectSigner(daoContract).createContent(
-        isAdvertiser,
-        unixTime,
-        url, {
+      const tx = await connectSigner(daoContract).createContent(isAdvertiser, unixTime, url, {
         gasLimit: 5000000,
-        gasPrice: gasPrice
-      }
-      );
+        gasPrice,
+      });
 
       await tx.wait();
       setIsCreate(false);
@@ -64,7 +71,6 @@ export const CreativeList = () => {
       console.log('Err: ', e);
     }
   };
-
 
   const getStatusText = (status: number) => {
     if (status === 1) {

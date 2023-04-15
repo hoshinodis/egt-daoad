@@ -10,7 +10,7 @@ import { NewSiteModal } from '@/features/Publisher/SiteList/NewSiteModal';
 import { getGasPrice, connectSigner } from '@/utils/contract';
 
 import { RootState } from '@/app/store';
-import VotingListOfSitesTitle from '@/assets/title/voting-list-of-sites.svg';
+import MySitesTitle from '@/assets/title/my-sites.svg';
 import { setSiteList } from '@/slice/appSlice';
 
 /**
@@ -31,11 +31,13 @@ export const SiteList = () => {
   const contractSites = useSelector((state: RootState) => state.app.contractSiteList);
 
   const handleCreate = async (url: string) => {
-    console.log('a;slkdjgalskjg;lajsdlgjadskgj;ajkg');
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
       await fetch('/api/sites', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ id: sites.length + 1, wallet_address: address, url }),
       });
 
@@ -78,7 +80,7 @@ export const SiteList = () => {
   return (
     <>
       <div className="flex justify-between">
-        <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
+        <Title className="my-8" src={MySitesTitle} alt="voting list of sites" />
         <div className="flex items-center">
           <NewSiteModal
             onClick={handleOpen}
