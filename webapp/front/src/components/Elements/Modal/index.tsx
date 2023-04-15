@@ -10,9 +10,11 @@ export type ModalPropsType = {
 };
 export const Modal = ({ className, isOpen, onClose, children }: ModalPropsType) => (
   <ReactModal
-    className="bg-primary-main border-primary-40 absolute inset-y-10 top-1/2 left-1/2 w-11/12 max-w-2xl -translate-x-1/2 -translate-y-1/2 border border-solid p-5"
+    className={clsx(
+      className,
+      'bg-primary-main border-primary-40 absolute inset-y-10 top-1/2 left-1/2 w-11/12 max-w-2xl -translate-x-1/2 -translate-y-1/2 border border-solid p-5'
+    )}
     isOpen={isOpen}
-    portalClassName={className}
     // eslint-disable-next-line tailwindcss/no-custom-classname
     bodyOpenClassName={clsx('ReactModal__Body--open', 'overflow-hidden')}
     // eslint-disable-next-line tailwindcss/no-custom-classname

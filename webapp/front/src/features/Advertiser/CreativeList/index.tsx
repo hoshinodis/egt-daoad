@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import { Creative } from '@/components/Creative';
-import { Button } from '@/components/Elements';
 import { Title } from '@/components/Elements/Title';
+
+import { CreativeModal } from '@/features/Advertiser/CreativeList/CreativeModal';
 
 import MyCreativesTitle from '@/assets/title/my-creatives.svg';
 
@@ -33,18 +34,30 @@ export const CreativeList = () => {
     },
   ]);
 
-  const handleNewCreative = () => {
-    alert('new creative');
-  };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClickNewCreative = () => setIsOpen(true);
+
+  const handleModalClose = () => setIsOpen(false);
+
+  const handleDropImage = (files: File[]) => console.log(files);
+
+  const handleCreate = () => alert('create');
 
   return (
     <>
       <div className="flex justify-between">
         <Title className="my-8" src={MyCreativesTitle} alt="my creative" />
         <div className="flex items-center">
-          <Button color="secondary" onClick={handleNewCreative}>
+          <CreativeModal
+            onClick={handleClickNewCreative}
+            isOpen={isOpen}
+            onClose={handleModalClose}
+            onDrop={handleDropImage}
+            onCreate={handleCreate}
+          >
             NEW CREATIVE
-          </Button>
+          </CreativeModal>
         </div>
       </div>
       <div className="flex flex-col gap-12">
