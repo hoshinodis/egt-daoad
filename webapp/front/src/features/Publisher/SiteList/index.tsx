@@ -38,7 +38,11 @@ export const SiteList = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: sites.length + 1, wallet_address: address, url }),
+        body: JSON.stringify({
+          id: sites.length + 1,
+          wallet_address: address,
+          url
+        }),
       });
 
       const gasPrice = await getGasPrice();
