@@ -9,6 +9,7 @@ import { Title } from '@/components/Elements/Title';
 import { Checkbox } from '@/components/Form/Checkbox';
 import { NumberField } from '@/components/Form/NumberField';
 
+import VoteForCreativeTitle from '@/assets/title/vote-for-creative.svg';
 import VoteForSiteTitle from '@/assets/title/vote-for-site.svg';
 
 /**
@@ -16,6 +17,7 @@ import VoteForSiteTitle from '@/assets/title/vote-for-site.svg';
  */
 export type VoteModalPropsType = {
   className?: string;
+  type: 'site' | 'creative';
   children: React.ReactNode;
   url: string;
   maxVp: number;
@@ -29,6 +31,7 @@ export type VoteModalPropsType = {
  */
 export const VoteModal = ({
   className,
+  type,
   children,
   url,
   maxVp,
@@ -71,15 +74,30 @@ export const VoteModal = ({
       <Button className={className} color="secondary" onClick={onClick}>
         {children}
       </Button>
-      <Modal className="h-[350px]" isOpen={isOpen} onClose={handleClose}>
+      <Modal
+        className={type === 'site' ? 'h-[350px]' : 'h-[520px]'}
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
         <ModalTitle className="h-14">
-          <Title src={VoteForSiteTitle} alt="new creative" />
+          <Title
+            src={type === 'site' ? VoteForSiteTitle : VoteForCreativeTitle}
+            alt={`new ${type}`}
+          />
         </ModalTitle>
         <ModalContents className="flex items-center">
           <div className="my-auto grid w-full grid-cols-3 gap-12">
             <div className="col-span-3 flex flex-col">
-              <div className="text-18-semi text-neutral-100/70">Site URL</div>
-              <div className="text-18-semi text-neutral-100">{url}</div>
+              {type === 'site' ? (
+                <>
+                  <div className="text-18-semi text-neutral-100/70">Site URL</div>
+                  <div className="text-18-semi text-neutral-100">{url}</div>
+                </>
+              ) : (
+                <div className="relative h-60 p-2">
+                  <img className="h-full w-full object-contain" src={url} alt="creative" />
+                </div>
+              )}
             </div>
             <Checkbox
               className="col-span-1"

@@ -9,6 +9,12 @@ import VotingListOfCreatives from '@/assets/title/voting-list-of-creatives.svg';
  * @package
  */
 export const CreativeList = () => {
+  const [maxVp] = useState(80);
+
+  const handleVote = (id: string) => (checked: boolean, vp: number) => {
+    alert(`id: ${id}, checked: ${checked ? 'true' : 'false'}, vp: ${vp}`);
+  };
+
   const [creatives] = useState<
     {
       id: string;
@@ -18,7 +24,7 @@ export const CreativeList = () => {
       expires?: Date;
       ok?: number;
       ng?: number;
-      onVote?: React.MouseEventHandler<HTMLButtonElement>;
+      onVote?: (checked: boolean, vp: number) => void;
     }[]
   >([
     {
@@ -29,9 +35,7 @@ export const CreativeList = () => {
       expires: new Date(new Date().getTime() + Math.random() * 1000000),
       ok: 50,
       ng: 50,
-      onVote: () => {
-        alert('vote');
-      },
+      onVote: handleVote('0001'),
     },
     {
       id: '0002',
@@ -52,7 +56,7 @@ export const CreativeList = () => {
       <Title className="my-8" src={VotingListOfCreatives} alt="my creative" />
       <div className="flex flex-col gap-12">
         {creatives.map((creative) => (
-          <Creative key={creative.id} {...creative} />
+          <Creative key={creative.id} {...creative} maxVp={maxVp} />
         ))}
       </div>
     </>

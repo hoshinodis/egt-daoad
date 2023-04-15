@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 
-import { Button, Card } from '@/components/Elements';
+import { Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
+import { VoteModal } from '@/components/VoteModal';
 
 const getTimeDifference = (date: Date): string => {
   const now = new Date();
@@ -29,7 +30,8 @@ export type CreativePropsType = {
   status: 'process' | 'passed' | 'rejected';
   ok?: number;
   ng?: number;
-  onVote?: React.MouseEventHandler<HTMLButtonElement>;
+  maxVp: number;
+  onVote?: (checked: boolean, vp: number) => void;
 };
 export const Creative = ({
   className,
@@ -40,6 +42,7 @@ export const Creative = ({
   status,
   ok,
   ng,
+  maxVp,
   onVote,
 }: CreativePropsType) => {
   const isVote = useMemo(
@@ -51,6 +54,10 @@ export const Creative = ({
       onVote !== undefined,
     [status, ok, ng, expires, onVote]
   );
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpenModal = () => setIsOpen(true);
+  const handleCloseModal = () => setIsOpen(false);
 
   return (
     <div className={clsx('flex flex-col', className)}>
@@ -95,7 +102,7 @@ export const Creative = ({
       </div>
       {isVote && (
         <div className="flex">
-          <Band className="flex w-3/4 justify-end" color={status}>
+          <Band className="flex flex-1 justify-end" color={status}>
             <div>
               <span>OK</span>
               <span>{ok}%</span>
@@ -103,9 +110,17 @@ export const Creative = ({
               <span>{ng}%</span>
             </div>
           </Band>
-          <Button className="h-12 w-1/4" color="secondary" onClick={onVote!}>
+          <VoteModal
+            type="creative"
+            url={image}
+            onClick={handleOpenModal}
+            isOpen={isOpen}
+            onClose={handleCloseModal}
+            maxVp={maxVp}
+            onVote={onVote!}
+          >
             VOTE
-          </Button>
+          </VoteModal>
         </div>
       )}
     </div>

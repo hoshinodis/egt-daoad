@@ -64,9 +64,6 @@ export const SiteList = () => {
       <div className="flex justify-between">
         <Title className="my-8" src={VotingListOfSitesTitle} alt="voting list of sites" />
         <div className="flex items-center">
-          {/* <Button color="secondary" onClick={handleNewSite}>
-            NEW SITE
-          </Button> */}
           <NewSiteModal
             onClick={handleOpen}
             isOpen={isOpen}

@@ -24,7 +24,7 @@ export const SiteList = () => {
       ok: number;
       ng: number;
       expires?: Date;
-      onVote: (checked: boolean, vp: number) => void;
+      onVote?: (checked: boolean, vp: number) => void;
     }[]
   >([
     {
@@ -44,7 +44,6 @@ export const SiteList = () => {
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
       ok: 50,
       ng: 50,
-      onVote: handleVote('0002'),
     },
     {
       id: '0003',
@@ -53,7 +52,6 @@ export const SiteList = () => {
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
       ok: 50,
       ng: 50,
-      onVote: handleVote('0003'),
     },
   ]);
 

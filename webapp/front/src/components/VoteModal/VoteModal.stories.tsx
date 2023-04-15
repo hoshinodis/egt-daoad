@@ -1,6 +1,6 @@
 import { ComponentStory, type ComponentMeta } from '@storybook/react';
 
-import { VoteModal } from '@/components/Site/VoteModal';
+import { VoteModal } from '@/components/VoteModal';
 
 type T = typeof VoteModal;
 
@@ -8,11 +8,10 @@ type T = typeof VoteModal;
  * @private
  */
 export default {
-  title: 'components/Site/VoteModal',
+  title: 'components/VoteModal',
   component: VoteModal,
   args: {
     children: 'VOTE',
-    url: 'https://example.com',
   },
 } as ComponentMeta<T>;
 
@@ -29,8 +28,21 @@ Close.args = {
 /**
  * @private
  */
-export const Open = Template.bind({});
-Open.args = {
+export const Site = Template.bind({});
+Site.args = {
+  type: 'site',
+  url: 'https://example.com',
   isOpen: true,
-  maxVp: 100,
+  maxVp: 80,
+};
+
+/**
+ * @private
+ */
+export const Creative = Template.bind({});
+Creative.args = {
+  type: 'creative',
+  url: 'https://picsum.photos/500/200',
+  isOpen: true,
+  maxVp: 80,
 };

@@ -11,6 +11,8 @@ import MyCreativesTitle from '@/assets/title/my-creatives.svg';
  * @package
  */
 export const CreativeList = () => {
+  const [maxVp] = useState(80);
+
   const [creatives] = useState<
     { id: string; status: 'process' | 'passed' | 'rejected'; image: string; createdAt: Date }[]
   >([
@@ -59,7 +61,7 @@ export const CreativeList = () => {
       </div>
       <div className="flex flex-col gap-12">
         {creatives.map((creative) => (
-          <Creative key={creative.id} {...creative} />
+          <Creative key={creative.id} {...creative} maxVp={maxVp} />
         ))}
       </div>
     </>

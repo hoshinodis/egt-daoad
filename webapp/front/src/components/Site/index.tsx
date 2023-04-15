@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { Button, Card } from '@/components/Elements';
 import { Band } from '@/components/Elements/Band';
-import { VoteModal } from '@/components/Site/VoteModal';
+import { VoteModal } from '@/components/VoteModal';
 
 const getTimeDifference = (date: Date): string => {
   const now = new Date();
@@ -114,6 +114,7 @@ export const Site = ({
         )}
         {isVote && (
           <VoteModal
+            type="site"
             url={url}
             onClick={handleOpenModal}
             isOpen={isOpen}
