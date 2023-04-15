@@ -92,14 +92,14 @@ export const SiteList = () => {
       <div className="flex flex-col gap-12">
         {contractSites.map((contractSite, i) => (
           <Site
-            key={contractSite.id}
-            id={contractSite.id}
+            key={contractSite[i].id}
+            id={contractSite[i].id}
             url={sites[i].url}
-            createdAt={contractSite.createdAt}
+            createdAt={new Date(contractSite[i].createdAt * 1000)}
             status={getStatusText(sites[i].status)}
-            expires={contractSite.endAt}
-            ok={contractSite.agreeVoteAmount}
-            ng={contractSite.rejectVoteAmount}
+            expires={new Date(contractSite[i].endAt * 1000)}
+            ok={contractSite[i].agreeVoteAmount}
+            ng={contractSite[i].rejectVoteAmount}
             maxVp={maxVp}
           />
         ))}

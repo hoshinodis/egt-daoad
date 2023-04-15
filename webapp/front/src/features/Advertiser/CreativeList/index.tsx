@@ -34,13 +34,17 @@ export const CreativeList = () => {
   const endDate = useSelector((state: RootState) => state.app.endDate);
   const dispatch = useDispatch();
 
-  const handleCreate = async (file: File) => {
+  const handleCreate = async (file: File, url: string) => {
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
-      const url = "https://www.google.com/?hl=ja"
-      const reader = new FileReader();
-      reader.readAsDataURL(file)
-      await fetch("/api/creatives", { method: 'POST', body: JSON.stringify({ id: creatives.length + 1, wallet_address: address, link: url, img: "" }) })
+      const fileReader = new FileReader();
+
+      fileReader.onload = async function () {
+        const dataURI = this.result;
+        await fetch("/api/creatives", { method: 'POST', body: JSON.stringify({ id: creatives.length + 1, wallet_address: address, link: url, img: dataURI }) })
+      }
+
+      fileReader.readAsDataURL(file);
 
       const gasPrice = await getGasPrice()
 

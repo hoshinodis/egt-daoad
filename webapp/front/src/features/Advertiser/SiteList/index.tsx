@@ -48,9 +48,9 @@ export const SiteList = () => {
             key={contractSite[i].id}
             id={contractSite[i].id}
             url={sites[i].url}
-            createdAt={new Date()}
+            createdAt={new Date(contractSite[i].createdAt * 1000)}
             status={getStatusText(sites[i].status)}
-            expires={contractSite[i].endAt}
+            expires={new Date(contractSite[i].endAt * 1000)}
             ok={contractSite[i].agreeVoteAmount}
             ng={contractSite[i].rejectVoteAmount}
             maxVp={maxVp}
