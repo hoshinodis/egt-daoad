@@ -18,6 +18,7 @@ export default {
   args: {
     id: '0005',
     image: 'https://picsum.photos/500/200',
+    link: 'https://example.com',
     createdAt: new Date(),
     ok: 40,
     ng: 60,

@@ -32,6 +32,7 @@ export type CreativePropsType = {
   createdAt: Date;
   expires?: Date;
   image: string;
+  link: string;
   status: 'process' | 'passed' | 'rejected';
   ok?: number;
   ng?: number;
@@ -44,6 +45,7 @@ export const Creative = ({
   createdAt,
   expires,
   image,
+  link,
   status,
   ok,
   ng,
@@ -103,7 +105,7 @@ export const Creative = ({
                   .replace('T', ' ')}
               </div>
             </div>
-            <div className="w-24 px-2">
+            <div className="w-32 px-2">
               {isVote && (
                 <>
                   <div className="text-18-semi text-neutral-10/70">Expires</div>
@@ -113,6 +115,10 @@ export const Creative = ({
                 </>
               )}
             </div>
+          </div>
+          <div className="px-2">
+            <div className="text-18-semi text-neutral-10/70">Link</div>
+            <div className="text-18-bold text-neutral-10">{link}</div>
           </div>
           <div className={clsx('relative p-2', isVote ? 'h-48' : 'h-60')}>
             <img className="h-full w-full object-contain" src={image} alt="creative" />

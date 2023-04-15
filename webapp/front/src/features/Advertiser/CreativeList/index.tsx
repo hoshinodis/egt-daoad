@@ -14,24 +14,33 @@ export const CreativeList = () => {
   const [maxVp] = useState(80);
 
   const [creatives] = useState<
-    { id: string; status: 'process' | 'passed' | 'rejected'; image: string; createdAt: Date }[]
+    {
+      id: string;
+      status: 'process' | 'passed' | 'rejected';
+      image: string;
+      link: string;
+      createdAt: Date;
+    }[]
   >([
     {
       id: '0001',
       status: 'process',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
     {
       id: '0002',
       status: 'passed',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
     {
       id: '0003',
       status: 'rejected',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
   ]);
@@ -42,7 +51,7 @@ export const CreativeList = () => {
 
   const handleModalClose = () => setIsOpen(false);
 
-  const handleCreate = (file: File) => alert(`create${file.name}`);
+  const handleCreate = (file: File, link: string) => alert(`create${file.name} ${link}`);
 
   return (
     <>

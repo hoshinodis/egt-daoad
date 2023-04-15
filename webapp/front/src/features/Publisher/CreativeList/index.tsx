@@ -20,6 +20,7 @@ export const CreativeList = () => {
       id: string;
       status: 'process' | 'passed' | 'rejected';
       image: string;
+      link: string;
       createdAt: Date;
       expires?: Date;
       ok?: number;
@@ -31,6 +32,7 @@ export const CreativeList = () => {
       id: '0001',
       status: 'process',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
       expires: new Date(new Date().getTime() + Math.random() * 1000000),
       ok: 50,
@@ -41,12 +43,14 @@ export const CreativeList = () => {
       id: '0002',
       status: 'passed',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
     {
       id: '0003',
       status: 'rejected',
       image: 'https://picsum.photos/500/200',
+      link: 'https://example.com',
       createdAt: new Date(Math.floor(Math.random() * new Date().getTime())),
     },
   ]);
