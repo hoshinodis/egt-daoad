@@ -22,20 +22,26 @@ func (q *Queries) ArchiveCreative(ctx context.Context, id int64) error {
 
 const createCreative = `-- name: CreateCreative :execlastid
 INSERT INTO creatives (
-    wallet_address, link, img
+    id, wallet_address, link, img
 ) VALUES (
-             ?, ?, ?
+             ?, ?, ?, ?
          )
 `
 
 type CreateCreativeParams struct {
+	ID            int64  `json:"id"`
 	WalletAddress string `json:"wallet_address"`
 	Link          string `json:"link"`
 	Img           string `json:"img"`
 }
 
 func (q *Queries) CreateCreative(ctx context.Context, arg CreateCreativeParams) (int64, error) {
-	result, err := q.db.ExecContext(ctx, createCreative, arg.WalletAddress, arg.Link, arg.Img)
+	result, err := q.db.ExecContext(ctx, createCreative,
+		arg.ID,
+		arg.WalletAddress,
+		arg.Link,
+		arg.Img,
+	)
 	if err != nil {
 		return 0, err
 	}

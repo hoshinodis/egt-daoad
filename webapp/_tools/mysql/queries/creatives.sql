@@ -8,9 +8,9 @@ ORDER BY id DESC;
 
 -- name: CreateCreative :execlastid
 INSERT INTO creatives (
-    wallet_address, link, img
+    id, wallet_address, link, img
 ) VALUES (
-             ?, ?, ?
+             ?, ?, ?, ?
          );
 
 -- name: ArchiveCreative :exec

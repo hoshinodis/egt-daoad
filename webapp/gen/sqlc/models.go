@@ -8,7 +8,7 @@ import ()
 
 // creative
 type Creative struct {
-	// creative id
+	// creative id from smart contract
 	ID int64 `json:"id"`
 	// creative owner wallet address
 	WalletAddress string `json:"wallet_address"`
@@ -22,7 +22,7 @@ type Creative struct {
 
 // site
 type Site struct {
-	// site id
+	// site id from smart contract
 	ID int64 `json:"id"`
 	// site owner wallet address
 	WalletAddress string `json:"wallet_address"`

@@ -1,6 +1,6 @@
 CREATE TABLE `sites`
 (
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'site id',
+    `id` BIGINT UNSIGNED NOT NULL COMMENT 'site id from smart contract',
     `wallet_address` VARCHAR(42) NOT NULL COMMENT 'site owner wallet address',
     `url` LONGTEXT NOT NULL COMMENT 'site url',
     `status` BIGINT NOT NULL DEFAULT 0 COMMENT 'site status',
@@ -9,7 +9,7 @@ CREATE TABLE `sites`
 
 CREATE TABLE `creatives`
 (
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'creative id',
+    `id` BIGINT UNSIGNED NOT NULL COMMENT 'creative id from smart contract',
     `wallet_address` VARCHAR(42) NOT NULL COMMENT 'creative owner wallet address',
     `link` LONGTEXT NOT NULL COMMENT 'creative link url',
     `img` LONGTEXT NOT NULL COMMENT 'creative img base64',

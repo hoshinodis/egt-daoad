@@ -22,19 +22,20 @@ func (q *Queries) ArchiveSite(ctx context.Context, id int64) error {
 
 const createSite = `-- name: CreateSite :execlastid
 INSERT INTO sites (
-    wallet_address, url
+    id, wallet_address, url
 ) VALUES (
-             ?, ?
+             ?, ?, ?
          )
 `
 
 type CreateSiteParams struct {
+	ID            int64  `json:"id"`
 	WalletAddress string `json:"wallet_address"`
 	Url           string `json:"url"`
 }
 
 func (q *Queries) CreateSite(ctx context.Context, arg CreateSiteParams) (int64, error) {
-	result, err := q.db.ExecContext(ctx, createSite, arg.WalletAddress, arg.Url)
+	result, err := q.db.ExecContext(ctx, createSite, arg.ID, arg.WalletAddress, arg.Url)
 	if err != nil {
 		return 0, err
 	}
