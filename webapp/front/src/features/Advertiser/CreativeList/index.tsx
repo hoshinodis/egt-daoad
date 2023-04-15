@@ -13,6 +13,14 @@ import { RootState } from '@/app/store';
 import MyCreativesTitle from '@/assets/title/my-creatives.svg';
 import { setAdvertiserList, setIsCreate } from '@/slice/appSlice';
 
+const toBase64 = (file: File) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+
 /**
  * @package
  */
@@ -37,25 +45,21 @@ export const CreativeList = () => {
   const handleCreate = async (file: File, url: string) => {
     const unixTime = Math.floor(new Date().getTime() / 1000) + endDate * 60;
     try {
-      // const fileReader = new FileReader();
+      const b64 = await toBase64(file);
 
-      // fileReader.onload = async function () {
-      //   const dataURI = this.result;
-      //   await fetch('/api/creatives', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({
-      //       id: creatives.length + 1,
-      //       wallet_address: address,
-      //       link: url,
-      //       img: dataURI,
-      //     }),
-      //   });
-      // };
-
-      // fileReader.readAsDataURL(file);
+      console.log(b64);
+      await fetch('/api/creatives', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: creatives.length + 1,
+          wallet_address: address,
+          link: url,
+          img: b64,
+        }),
+      });
 
       const gasPrice = await getGasPrice();
 
