@@ -48,7 +48,7 @@ export const SiteList = () => {
   }, []);
   console.log(contractSites);
   console.log(sites);
-  console.log(contractSites.length && contractSites[0].id.toNumber());
+  console.log(contractSites.length && contractSites[0].createdAt.toNumber());
 
   return (
     <>
@@ -62,10 +62,16 @@ export const SiteList = () => {
                 ? contractSite.id.toNumber().toString()
                 : contractSite.id
             }
-            url={sites.length > i ? sites[i].url : ''}
-            createdAt={new Date()}
+            url={contractSite.siteUrl}
+            createdAt={
+              new Date(
+                contractSite.createdAt !== undefined ? contractSite.createdAt.toNumber() * 1000 : 0
+              )
+            }
             status={sites.length > i ? getStatusText(sites[i].status) : 'process'}
-            expires={new Date()}
+            expires={
+              new Date(contractSite.endAt !== undefined ? contractSite.endAt.toNumber() * 1000 : 0)
+            }
             ok={
               contractSite.agreeVoteAmount !== undefined
                 ? contractSite.agreeVoteAmount.toNumber()

@@ -101,10 +101,16 @@ export const SiteList = () => {
                 ? contractSite.id.toNumber().toString()
                 : contractSite.id
             }
-            url={sites.length > i ? sites[i].url : ''}
-            createdAt={new Date()}
+            url={contractSite.siteUrl}
+            createdAt={
+              new Date(
+                contractSite.createdAt !== undefined ? contractSite.createdAt.toNumber() * 1000 : 0
+              )
+            }
             status={sites.length > i ? getStatusText(sites[i].status) : 'process'}
-            expires={new Date()}
+            expires={
+              new Date(contractSite.endAt !== undefined ? contractSite.endAt.toNumber() * 1000 : 0)
+            }
             ok={
               contractSite.agreeVoteAmount !== undefined
                 ? contractSite.agreeVoteAmount.toNumber()
